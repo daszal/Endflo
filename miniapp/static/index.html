@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Gritline</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    /* ---- Endflo brand: ink/paper monochrome · Sora / Space Mono / Manrope ---- */
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&family=Sora:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+    :root {
+      /* Paper (light) theme */
+      --bg: #F6F5F0;
+      --surface: #FFFFFF;
+      --text: #0B0B0C;
+      --muted: #55534B;
+      --faint: #8A887E;
+      --accent: #3F5DE0;
+      --accent-alpha: rgba(63, 93, 224, 0.12);
+      --accent-amber: #E0973F;
+      --done: #1F8A5B;
+      --done-alpha: rgba(31, 138, 91, 0.12);
+      --danger: #C24A3B;
+      --danger-alpha: rgba(194, 74, 59, 0.12);
+      --border: #DEDCD2;          /* mist */
+      --border-strong: #B9B6A9;   /* mist-strong */
+      --nav-bg: rgba(246, 245, 240, 0.92);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --radius-pill: 999px;
+      --font-body: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-display: 'Manrope', sans-serif;
+      --tracking-mono: 0.12em;
+    }
+    :root[data-theme="dark"] {
+      /* Ink (dark) theme */
+      --bg: #0B0B0C;
+      --surface: #17171A;
+      --text: #F6F5F0;
+      --muted: rgba(246, 245, 240, 0.64);
+      --faint: rgba(246, 245, 240, 0.42);
+      --accent: #8DA2F2;
+      --accent-alpha: rgba(99, 125, 235, 0.22);
+      --accent-amber: #E0973F;
+      --done: #4CAF87;
+      --done-alpha: rgba(76, 175, 135, 0.16);
+      --danger: #D97B6C;
+      --danger-alpha: rgba(217, 123, 108, 0.16);
+      --border: rgba(246, 245, 240, 0.14);
+      --border-strong: rgba(246, 245, 240, 0.34);
+      --nav-bg: rgba(11, 11, 12, 0.92);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.45;
+      padding-bottom: calc(24px + env(safe-area-inset-bottom));
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Space Mono label utility (kickers, counts, tiny captions) */
+    .mono-label {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-mono);
+    }
+
+    /* ---- Tab nav ---- */
+    .tab-nav {
+      display: flex;
+      position: sticky; top: 0; z-index: 10;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 12px;
+      gap: 4px;
+    }
+    .tab-nav button {
+      flex: 1; padding: 10px 2px;
+      background: transparent; border: none;
+      font-family: var(--font-body);
+      font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em;
+      color: var(--muted); cursor: pointer;
+      border-radius: var(--radius-pill);
+      transition: background .2s ease, color .2s ease, opacity .15s ease;
+      min-height: 40px;
+    }
+    .tab-nav button.active {
+      color: var(--bg);
+      background: var(--text);
+    }
+    .tab-nav button:not(.active):active { opacity: 0.6; }
+    .gear-btn {
+      flex: none !important; width: 44px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gear-btn svg { width: 18px; height: 18px; }
+
+    /* ---- Content area ---- */
+    .tab-content { display: none; padding: 20px 16px; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ---- SVG Icons ---- */
+    .chevron-icon {
+      width: 16px; height: 16px;
+      color: var(--faint);
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+    .edit-svg {
+      width: 15px; height: 15px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .pin-icon { width: 12px; height: 12px; flex-shrink: 0; }
+
+    /* ---- Cards: flat surface, mist border, no shadows (brand rule) ---- */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: transform .15s ease, opacity .2s ease, border-color .2s ease;
+    }
+    .card:active { transform: scale(0.98); }
+    .card.checked { opacity: 0.5; }
+    .card.checked .card-title { text-decoration: line-through; color: var(--muted); }
+    .card-body { flex:1; min-width:0; }
+    .card-title { font-weight: 600; font-size: 14.5px; margin-bottom: 6px; word-break: break-word; line-height: 1.35; letter-spacing: -0.01em; }
+    .card-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .card-date {
+      font-family: var(--font-mono); font-size: 9.5px; font-weight: 400;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--faint); margin-top: 8px; display: block;
+    }
+
+    /* Check-circle */
+    .check-circle {
+      width: 24px; height: 24px; min-width: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 2px;
+      background: transparent;
+    }
+    .card:not(.checked) .check-circle:hover { border-color: var(--accent); background: var(--accent-alpha); }
+    .card.checked .check-circle {
+      background: var(--text);
+      border-color: var(--text);
+    }
+    .check-circle::after {
+      content: '✓'; font-size: 13px; font-weight: 800;
+      color: var(--bg); opacity: 0; transform: scale(0.5);
+      transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card.checked .check-circle::after { opacity: 1; transform: scale(1); }
+
+    /* ---- Date section headers: Space Mono kickers ---- */
+    .date-header {
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: var(--tracking-mono); padding: 18px 4px 10px 4px;
+      color: var(--faint);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .date-header::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor; flex-shrink: 0;
+    }
+    .date-header.overdue { color: var(--danger); }
+    .date-header.today   { color: var(--accent-amber); }
+
+    /* ---- Overview Cards ---- */
+    .overview-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px;
+    }
+    .overview-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 8px; text-align: center;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .overview-val {
+      font-family: var(--font-display); font-size: 23px; font-weight: 800;
+      letter-spacing: -0.03em; color: var(--text); line-height: 1;
+    }
+    .overview-label {
+      font-family: var(--font-mono); font-size: 9px; color: var(--faint);
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4;
+    }
+
+    /* ---- Project groups ---- */
+    .project-group { margin-bottom: 24px; }
+    .project-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 4px; cursor: pointer; user-select: none;
+    }
+    .project-header .project-name {
+      font-weight: 700; font-size: 15px; color: var(--text); flex: 1; letter-spacing: -0.01em;
+    }
+    .project-header .project-count {
+      font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-pill); padding: 3px 10px;
+    }
+    .project-header.collapsed .chevron-icon { transform: rotate(-90deg); }
+    .project-items { overflow: hidden; }
+    .project-items.collapsed { display: none; }
+
+    /* ---- Meeting cards ---- */
+    .meeting-card { position: relative; align-items: center; }
+    .meeting-time-col {
+      display: flex; flex-direction: column; align-items: flex-start;
+      min-width: 80px; justify-content: center;
+    }
+    .meeting-time {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .meeting-date {
+      font-family: var(--font-mono);
+      font-size: 9.5px; font-weight: 700; color: var(--faint);
+      margin-top: 5px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .meeting-location {
+      font-size: 12px; color: var(--muted); margin: 4px 0 8px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .project-pill {
+      display: inline-flex; align-items: center; padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-strong);
+      background: transparent; color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 9.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .dismiss-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: transparent; border: 1px solid var(--border); border-radius: 50%;
+      color: var(--muted);
+      cursor: pointer; width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .dismiss-btn svg { width: 13px; height: 13px; }
+    .dismiss-btn:hover { border-color: var(--border-strong); color: var(--text); }
+    .dismiss-btn:active { transform: scale(0.9); opacity: 0.75; }
+
+    /* ---- Triage ---- */
+    .triage-ref {
+      font-family: var(--font-mono); font-size: 10.5px; color: var(--faint);
+      letter-spacing: 0.06em; margin-top: 6px; padding-left: 10px;
+      border-left: 2px solid var(--border-strong);
+    }
+    .triage-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .resolve-btn, .clarify-btn {
+      flex: 1; padding: 11px; border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .resolve-btn {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--text);
+    }
+    .resolve-btn:hover { opacity: 0.85; }
+    .clarify-btn {
+      background: var(--accent-alpha); color: var(--accent);
+      border: 1.5px solid transparent;
+    }
+    .clarify-btn:hover { opacity: 0.85; }
+    .resolve-btn:active, .clarify-btn:active { transform: scale(0.96); opacity: 0.75; }
+
+    .clarify-input {
+      width: 100%; padding: 14px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 14px; font-family: var(--font-body);
+      background: var(--bg); color: var(--text);
+      resize: vertical; min-height: 80px; margin-bottom: 12px;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .clarify-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-alpha);
+    }
+    .clarify-sent {
+      color: var(--done); font-size: 13px; font-weight: 600; margin-top: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ---- Deadlines ---- */
+    .deadline { color: var(--accent-amber); font-weight: 600; }
+    .deadline.overdue { color: var(--danger); }
+
+    /* ---- Empty / error / skeleton ---- */
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--muted); }
+    .empty-state .icon { margin-bottom: 16px; }
+    .empty-state .icon svg { width: 44px; height: 44px; color: var(--border-strong); }
+    .empty-state p { font-size: 15px; font-weight: 500; }
+
+    .error-state { text-align: center; padding: 60px 20px; color: var(--danger); }
+    .error-state button {
+      margin-top: 16px; background: var(--text); color: var(--bg);
+      border: none; padding: 12px 28px; border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: transform 0.2s, opacity 0.15s;
+    }
+    .error-state button:active { transform: scale(0.95); opacity: 0.75; }
+
+    .skeleton { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%,100% {opacity:1} 50% {opacity:0.5} }
+    .sk-line { height: 14px; background: var(--border); border-radius: 8px; margin-bottom: 12px; }
+    .sk-line.w80 { width: 80%; } .sk-line.w60 { width: 60%; } .sk-line.w40 { width: 40%; }
+
+    /* ---- Settings ---- */
+    .settings-card { margin-bottom: 16px; padding: 16px; }
+    .settings-section { margin-bottom: 32px; }
+    .settings-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text); letter-spacing: -0.01em; }
+
+    .settings-row { display: flex; align-items: center; gap: 12px; }
+    .settings-row .body { flex:1; min-width:0; }
+    .settings-row .title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .settings-row .sub {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em;
+      color: var(--faint); overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .edit-btn, .part-edit-btn {
+      background: transparent; border: 1px solid var(--border);
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.2s; flex-shrink: 0;
+    }
+    .edit-btn:hover, .part-edit-btn:hover { border-color: var(--border-strong); }
+    .edit-btn:hover .edit-svg, .part-edit-btn:hover .edit-svg { color: var(--text); }
+
+    .participant-dropdown { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); width: 100%; }
+    .parts-header {
+      display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;
+      font-family: var(--font-mono);
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); transition: color 0.2s;
+    }
+    .parts-header:hover { color: var(--text); }
+    .parts-header .chevron-icon { transform: rotate(-90deg); }
+    .parts-header.open .chevron-icon { transform: rotate(0deg); }
+
+    .parts-body { display: none; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .parts-body.open { display: flex; }
+
+    .part-row {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      background: var(--bg); border-radius: var(--radius-sm); border: 1px solid transparent;
+      transition: border 0.2s;
+    }
+    .part-row:hover { border-color: var(--border); }
+    .part-name { font-size: 13px; font-weight: 600; }
+    .part-role {
+      font-family: var(--font-mono);
+      font-size: 9px; font-weight: 700; padding: 3px 7px; border-radius: 6px;
+      background: transparent; color: var(--muted); border: 1px solid var(--border-strong);
+      text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0;
+    }
+    .status-pill {
+      font-family: var(--font-mono);
+      font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: var(--radius-pill);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-left: 8px;
+    }
+    .status-pill.active {
+      background: var(--done-alpha);
+      color: var(--done);
+      border: 1px solid var(--done);
+    }
+    .status-pill.inactive {
+      background: var(--danger-alpha);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    .part-phone { font-size: 11px; color: var(--faint); font-family: var(--font-mono); }
+
+    /* Edit Forms */
+    .inline-form {
+      display: flex; flex-direction: column; gap: 12px; padding: 16px;
+      background: var(--surface); border-radius: var(--radius); border: 1.5px solid var(--border);
+      margin-top: 12px;
+    }
+    .part-edit-form {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;
+      padding: 12px; background: var(--surface); border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+    }
+    .inline-form input, .part-edit-form input, .part-edit-form select {
+      padding: 12px 14px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 14px;
+      background: var(--bg); color: var(--text); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s; font-family: var(--font-body);
+    }
+    .inline-form input:focus, .part-edit-form input:focus, .part-edit-form select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-alpha);
+    }
+    /* Minimalist native select styling */
+    .part-edit-form select {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238A887E%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px top 50%;
+      background-size: 10px auto;
+      padding-right: 32px;
+    }
+
+    .inline-form .btn-row, .part-edit-form .btn-row { display: flex; gap: 8px; width: 100%; margin-top: 4px; }
+    .btn-save, .btn-cancel {
+      flex: 1; padding: 12px 14px; border: none; border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-save:active, .btn-cancel:active { transform: scale(0.97); opacity: 0.75; }
+    .btn-save { background: var(--text); color: var(--bg); }
+    .btn-save:hover { opacity: 0.9; }
+    .btn-cancel { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); }
+    .btn-cancel:hover { border-color: var(--text); }
+
+    /* ---- Bottom sheet ---- */
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(11, 11, 12, 0.55);
+      opacity: 0; transition: opacity 0.25s ease;
+    }
+    .sheet-overlay.open { opacity: 1; }
+    .sheet {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 101;
+      background: var(--surface);
+      border: 1.5px solid var(--border); border-bottom: none;
+      border-radius: 24px 24px 0 0;
+      max-height: 82vh;
+      max-height: 82dvh;
+      display: flex; flex-direction: column;
+      padding-bottom: env(safe-area-inset-bottom);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .sheet.open { transform: translateY(0); }
+    .sheet-handle {
+      width: 36px; height: 4px; border-radius: var(--radius-pill);
+      background: var(--border-strong); margin: 10px auto 0; flex-shrink: 0;
+    }
+    .sheet-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 20px 10px; flex-shrink: 0;
+    }
+    .sheet-kicker {
+      flex: 1;
+      font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: var(--tracking-mono);
+      color: var(--faint);
+    }
+    .sheet-close { position: static; flex-shrink: 0; }
+    .sheet-body {
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: 4px 20px 28px;
+    }
+
+    /* Sheet: source messages (triage) */
+    .msg-row { margin-bottom: 16px; }
+    .msg-row:last-child { margin-bottom: 0; }
+    .msg-sender {
+      display: flex; align-items: baseline; gap: 8px;
+      font-family: var(--font-mono); font-size: 9.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); margin-bottom: 5px;
+    }
+    .msg-time { font-weight: 400; color: var(--faint); }
+    .msg-bubble {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px 12px 12px 12px;
+      padding: 10px 12px; font-size: 13.5px; line-height: 1.5;
+      word-break: break-word;
+    }
+    .msg-media {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--faint);
+    }
+    .msg-media svg { width: 13px; height: 13px; }
+    .msg-media + div { margin-top: 6px; }
+
+    /* Sheet: methodology / definitions */
+    .sheet-stat {
+      font-family: var(--font-display); font-size: 32px; font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1; margin: 6px 0 10px;
+    }
+    .sheet-copy { font-size: 13.5px; color: var(--muted); margin-bottom: 16px; }
+    .method-row {
+      display: flex; align-items: baseline; gap: 14px;
+      padding: 12px 0; border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--muted);
+    }
+    .method-num {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+      color: var(--text); white-space: nowrap; min-width: 86px;
+    }
+    .method-row.total { color: var(--text); font-weight: 600; }
+    .sheet-fine {
+      font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em;
+      color: var(--faint); margin-top: 16px;
+    }
+
+    /* Tappable overview cards */
+    .overview-card { position: relative; }
+    .overview-card.tappable { cursor: pointer; transition: transform .15s ease, border-color .2s ease; }
+    .overview-card.tappable:active { transform: scale(0.97); border-color: var(--border-strong); }
+    .info-badge {
+      position: absolute; top: 6px; right: 7px;
+      width: 12px; height: 12px; color: var(--faint);
+    }
+    .info-badge svg { width: 12px; height: 12px; display: block; }
+
+    /* ---- Footer ---- */
+    .stats-footer {
+      font-family: var(--font-mono);
+      text-align: center; font-size: 10px; font-weight: 400;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--faint);
+      padding: 20px 0; margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="tab-nav" id="tabNav">
+  <button data-tab="today" class="active">Today</button>
+  <button data-tab="projects">Projects</button>
+  <button data-tab="meetings">Meetings</button>
+  <button data-tab="triage">Triage</button>
+  <button data-tab="settings" class="gear-btn" title="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+</nav>
+
+<!-- === TODAY TAB === -->
+<div class="tab-content active" id="tab-today">
+  <div id="today-container"></div>
+</div>
+
+<!-- === PROJECTS TAB === -->
+<div class="tab-content" id="tab-projects">
+  <div id="projects-container"></div>
+  <div class="stats-footer" id="projects-footer"></div>
+</div>
+
+<!-- === MEETINGS TAB === -->
+<div class="tab-content" id="tab-meetings">
+  <div id="meetings-container"></div>
+</div>
+
+<!-- === TRIAGE TAB === -->
+<div class="tab-content" id="tab-triage">
+  <div id="triage-container"></div>
+</div>
+
+<!-- === SETTINGS TAB === -->
+<div class="tab-content" id="tab-settings">
+  <div id="settings-overview"></div>
+  <div id="projects-list"></div>
+</div>
+
+<script>
+// ── Init & Theme Management ──────────────────────────────
+// Endflo brand: two flat themes only — paper (light) and ink (dark).
+// Telegram's colorScheme picks the mode; the palette itself stays the brand's.
+const TG = window.Telegram?.WebApp;
+
+const BRAND_BG = { light: '#F6F5F0', dark: '#0B0B0C' };
+
+function applyBrandTheme(isDark) {
+  const root = document.documentElement;
+  if (isDark) root.setAttribute('data-theme', 'dark');
+  else root.removeAttribute('data-theme');
+  const bg = isDark ? BRAND_BG.dark : BRAND_BG.light;
+  try {
+    TG?.setHeaderColor(bg);
+    TG?.setBackgroundColor(bg);
+  } catch(e) {}
+}
+
+function applyTelegramTheme() {
+  if (!TG) return;
+  applyBrandTheme(TG.colorScheme === 'dark');
+}
+
+if (TG) {
+  TG.ready();
+  TG.expand();
+  TG.onEvent('themeChanged', applyTelegramTheme);
+  applyTelegramTheme();
+}
+
+// ── Demo data for local testing (file:// or server unavailable) ───
+const DEMO = {
+  '/api/tasks': {
+    projects: [
+      {
+        project_name: 'Riverside Residences',
+        tasks: [
+          { task_id: 101, title: 'Confirm tile delivery for unit 12A', owner: 'Alex', status: 'Needs Action', deadline: new Date(Date.now() - 86400000).toISOString(), created_at: new Date(Date.now() - 3*86400000).toISOString() },
+          { task_id: 102, title: 'Schedule electrician for common area lighting', owner: 'Ben', status: 'Needs Action', deadline: new Date().toISOString(), created_at: new Date(Date.now() - 2*86400000).toISOString() },
+          { task_id: 103, title: 'Follow up on window mesh sample approval', owner: 'Alex', status: 'Needs Action', deadline: new Date(Date.now() + 86400000).toISOString(), created_at: new Date(Date.now() - 86400000).toISOString() },
+          { task_id: 104, title: 'Order replacement sink for guest bathroom', owner: 'Charlie', status: 'Needs Action', deadline: new Date(Date.now() + 3*86400000).toISOString(), created_at: new Date().toISOString() },
+        ]
+      },
+      {
+        project_name: 'Oakwood Commercial',
+        tasks: [
+          { task_id: 201, title: 'Submit revised floor plan to client', owner: 'Ben', status: 'Needs Action', deadline: new Date(Date.now() + 86400000).toISOString(), created_at: new Date(Date.now() - 5*86400000).toISOString() },
+          { task_id: 202, title: 'Confirm switch layout for meeting room', owner: 'Alex', status: 'Needs Action', deadline: new Date(Date.now() + 2*86400000).toISOString(), created_at: new Date(Date.now() - 86400000).toISOString() },
+        ]
+      }
+    ],
+    completed_projects: [
+      {
+        project_name: 'Riverside Residences',
+        tasks: [
+          { task_id: 105, title: 'Patch up trunking hole near compressor', owner: 'Charlie', status: 'Done', deadline: new Date(Date.now() - 86400000).toISOString(), created_at: new Date(Date.now() - 4*86400000).toISOString() },
+          { task_id: 106, title: 'Confirm countertop material with supplier', owner: 'Alex', status: 'Done', deadline: new Date(Date.now() - 2*86400000).toISOString(), created_at: new Date(Date.now() - 6*86400000).toISOString() },
+        ]
+      }
+    ],
+    completed_today: 1,
+    cleared_yesterday: 3,
+  },
+  '/api/meetings': {
+    projects: [
+      {
+        project_name: 'Riverside Residences',
+        meetings: [
+          { meeting_id: 10, title: 'Tile installation walkthrough', scheduled_time: new Date().toISOString(), location: '12A Riverside Ave', project_address: '' },
+          { meeting_id: 11, title: 'Lighting review with client', scheduled_time: new Date(Date.now() + 86400000).toISOString(), location: null, project_address: '' },
+          { meeting_id: 12, title: 'Final inspection', scheduled_time: new Date(Date.now() + 5*86400000).toISOString(), location: '12A Riverside Ave', project_address: '' },
+        ]
+      },
+      {
+        project_name: 'Oakwood Commercial',
+        meetings: [
+          { meeting_id: 20, title: 'Floor plan discussion', scheduled_time: new Date(Date.now() + 2*86400000).toISOString(), location: 'Oakwood Tower L3', project_address: '' },
+        ]
+      }
+    ]
+  },
+  '/api/triage': {
+    projects: [
+      {
+        project_name: 'Riverside Residences',
+        items: [
+          { triage_id: 301, issue: 'Client asked about the sealant at the backsplash base but no timeline was provided. Need to schedule application.', refs: ['664'] },
+          { triage_id: 302, issue: 'Wesley mentioned a discount on final payment but the specific amount was not clarified.', refs: ['9617'] },
+        ]
+      },
+      {
+        project_name: 'Oakwood Commercial',
+        items: [
+          { triage_id: 310, issue: 'Unclear if the meeting room switch layout matches the approved drawing. Need site verification.', refs: ['102'] },
+        ]
+      }
+    ]
+  },
+  '/api/triage/301/messages': {
+    messages: [
+      { id: 664, sender: 'Wesley Tay', content: 'Btw the sealant at the backsplash base — when can your guys come by to apply it?', content_type: 'text', sent_at: new Date(Date.now() - 2*86400000).toISOString() },
+      { id: 665, sender: 'Wesley Tay', content: null, content_type: 'image', sent_at: new Date(Date.now() - 2*86400000 + 60000).toISOString() },
+      { id: 668, sender: 'Alex', content: 'Noted, will check with the tiler and revert.', content_type: 'text', sent_at: new Date(Date.now() - 2*86400000 + 540000).toISOString() },
+    ]
+  },
+  '/api/triage/302/messages': {
+    messages: [
+      { id: 9617, sender: 'Wesley Tay', content: 'For the final payment we discussed, can give a small discount since the handover slipped a week?', content_type: 'text', sent_at: new Date(Date.now() - 86400000).toISOString() },
+    ]
+  },
+  '/api/triage/310/messages': {
+    messages: [
+      { id: 102, sender: 'Diana', content: 'The switch layout in the meeting room looks different from the drawing we approved last month.', content_type: 'text', sent_at: new Date(Date.now() - 3*86400000).toISOString() },
+      { id: 103, sender: 'Diana', content: 'Approved drawing attached for reference', content_type: 'document', sent_at: new Date(Date.now() - 3*86400000 + 120000).toISOString() },
+    ]
+  },
+  '/api/config/projects': {
+    total_tasks: 287,
+    projects: [
+    {
+      id: 1, chat_jid: '120363424374918001@g.us', project_name: 'Riverside Residences', project_address: '', is_active: true,
+      participants: [
+        { whatsapp_id: '100001@lid', display_name: 'Alex', phone_number: '6591234567', role: 'PM' },
+        { whatsapp_id: '100002@lid', display_name: 'Ben', phone_number: '6592345678', role: 'Electrician' },
+        { whatsapp_id: '100003@lid', display_name: 'Charlie', phone_number: '6593456789', role: 'Client' },
+      ]
+    },
+    {
+      id: 2, chat_jid: '120363424374918002@g.us', project_name: 'Oakwood Commercial', project_address: '', is_active: false,
+      participants: [
+        { whatsapp_id: '100002@lid', display_name: 'Ben', phone_number: '6592345678', role: 'Carpenter' },
+        { whatsapp_id: '100004@lid', display_name: 'Diana', phone_number: '6594567890', role: 'Client' },
+      ]
+    }
+    ]
+  },
+};
+
+// Endpoint → demo data key mapping
+function getDemoData(path) {
+  const base = path.split('?')[0];
+  return DEMO[base] || null;
+}
+
+const IS_DEMO = !window.Telegram?.WebApp?.initData && window.location.protocol === 'file:';
+
+const api = (path, opts = {}) => {
+  if (IS_DEMO) {
+    const method = (opts.method || 'GET').toUpperCase();
+    const demo = getDemoData(path);
+    if (demo) return Promise.resolve(JSON.parse(JSON.stringify(demo)));
+    if (method === 'POST') return Promise.resolve({ status: 'ok', demo: true });
+  }
+  return fetch(path, {
+    ...opts,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Telegram-InitData': TG?.initData || '',
+      ...(opts.headers || {}),
+    },
+  }).then(r => {
+    if (!r.ok) throw new Error(`${r.status}`);
+    return r.json();
+  }).catch(e => {
+    const demo = getDemoData(path);
+    if (demo) return JSON.parse(JSON.stringify(demo));
+    throw e;
+  });
+};
+
+if (IS_DEMO) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 12px;font-family:var(--font-mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;';
+    banner.innerHTML = `<span>Demo mode — sample data</span>`;
+
+    const svgSun = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`;
+    const svgMoon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>`;
+
+    const toggle = document.createElement('label');
+    toggle.style.cssText = 'display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:500;';
+    toggle.innerHTML = `${svgSun}
+      <input type="checkbox" id="demo-dark-toggle"
+        style="width:32px;height:18px;cursor:pointer;accent-color:#0B0B0C;">
+      ${svgMoon}`;
+    banner.appendChild(toggle);
+
+    const chk = toggle.querySelector('#demo-dark-toggle');
+
+    function applyDemoTheme(dark) {
+      applyBrandTheme(dark);
+      // signal-amber strip on paper; flat surface strip on ink
+      banner.style.background = dark ? '#17171A' : '#E0973F';
+      banner.style.color = dark ? '#F6F5F0' : '#0B0B0C';
+    }
+
+    const saved = localStorage.getItem('demo-dark');
+    const isDark = saved === 'true';
+    chk.checked = isDark;
+    applyDemoTheme(isDark);
+
+    chk.addEventListener('change', () => {
+      const dark = chk.checked;
+      localStorage.setItem('demo-dark', dark);
+      applyDemoTheme(dark);
+    });
+
+    document.body.prepend(banner);
+  });
+}
+
+// ── Tab navigation ────────────────────────────────────
+let currentTab = 'today';
+
+document.getElementById('tabNav').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-tab]');
+  if (!btn) return;
+  switchTab(btn.dataset.tab);
+});
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-nav button').forEach(b =>
+    b.classList.toggle('active', b.dataset.tab === tab)
+  );
+  document.querySelectorAll('.tab-content').forEach(d =>
+    d.classList.toggle('active', d.id === 'tab-' + tab)
+  );
+  if (tab === 'today') loadToday();
+  else if (tab === 'projects') loadProjectTasks();
+  else if (tab === 'meetings') loadMeetings();
+  else if (tab === 'triage') loadTriage();
+  else if (tab === 'settings') loadSettings();
+}
+
+// ── SVG Definitions (single-weight line icons, per brand iconography) ──
+const svgChevron = `<svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+const svgEdit = `<svg class="edit-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>`;
+const svgCheck = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+const svgMessage = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+const svgX = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>`;
+const svgPin = `<svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>`;
+const svgAllDone = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>`;
+const svgCalendar = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="4"></rect><path d="M3 10h18"></path></svg>`;
+const svgChat = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>`;
+const svgInfo = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>`;
+const svgImage = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>`;
+const svgFile = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg>`;
+const svgMic = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>`;
+const infoBadge = `<span class="info-badge">${svgInfo}</span>`;
+
+// ── Bottom sheet (shared popup) ───────────────────────
+let _sheetEls = null;
+let _sheetHideTimer = null;
+
+function ensureSheet() {
+  if (_sheetEls) return _sheetEls;
+  const overlay = document.createElement('div');
+  overlay.className = 'sheet-overlay';
+  overlay.style.display = 'none';
+  overlay.addEventListener('click', closeSheet);
+
+  const sheet = document.createElement('div');
+  sheet.className = 'sheet';
+  sheet.style.display = 'none';
+  sheet.innerHTML = `<div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-kicker" id="sheet-kicker"></div>
+      <button class="dismiss-btn sheet-close" onclick="closeSheet()">${svgX}</button>
+    </div>
+    <div class="sheet-body" id="sheet-body"></div>`;
+
+  document.body.append(overlay, sheet);
+  _sheetEls = { overlay, sheet };
+  return _sheetEls;
+}
+
+function openSheet(kicker, bodyHtml) {
+  const { overlay, sheet } = ensureSheet();
+  clearTimeout(_sheetHideTimer);
+  document.getElementById('sheet-kicker').textContent = kicker;
+  document.getElementById('sheet-body').innerHTML = bodyHtml;
+  document.getElementById('sheet-body').scrollTop = 0;
+  overlay.style.display = 'block';
+  sheet.style.display = 'flex';
+  requestAnimationFrame(() => {
+    overlay.classList.add('open');
+    sheet.classList.add('open');
+  });
+  haptic();
+  try { TG?.BackButton?.onClick(closeSheet); TG?.BackButton?.show(); } catch (e) {}
+}
+
+function setSheetBody(bodyHtml) {
+  const body = document.getElementById('sheet-body');
+  if (body) body.innerHTML = bodyHtml;
+}
+
+function closeSheet() {
+  if (!_sheetEls) return;
+  const { overlay, sheet } = _sheetEls;
+  overlay.classList.remove('open');
+  sheet.classList.remove('open');
+  clearTimeout(_sheetHideTimer);
+  _sheetHideTimer = setTimeout(() => {
+    overlay.style.display = 'none';
+    sheet.style.display = 'none';
+  }, 300);
+  try { TG?.BackButton?.offClick(closeSheet); TG?.BackButton?.hide(); } catch (e) {}
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+// ── Helpers ───────────────────────────────────────────
+function skeleton(n = 3) {
+  return Array(n).fill(
+    `<div class="card skeleton"><div class="card-body">` +
+    `<div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div></div>`
+  ).join('');
+}
+
+function emptyState(icon, msg) {
+  return `<div class="empty-state"><div class="icon">${icon}</div><p>${msg}</p></div>`;
+}
+
+function errorState(msg) {
+  return `<div class="error-state"><p>${msg}</p><button onclick="retryCurrentTab()">Tap to Retry</button></div>`;
+}
+
+function retryCurrentTab() {
+  if (currentTab === 'today') loadToday();
+  else if (currentTab === 'projects') loadProjectTasks();
+  else if (currentTab === 'meetings') loadMeetings();
+  else if (currentTab === 'triage') loadTriage();
+  else if (currentTab === 'settings') loadSettings();
+}
+
+function haptic(type = 'light') {
+  TG?.HapticFeedback?.impactOccurred(type);
+}
+
+function toggleProject(header) {
+  const items = header.nextElementSibling;
+  header.classList.toggle('collapsed');
+  items.classList.toggle('collapsed');
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+// ── Date helpers ──────────────────────────────────────
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function formatDateLabel(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-SG', { month: 'short', day: 'numeric' });
+}
+
+function formatDeadline(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const deadlineDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const diff = deadlineDay - today;
+  const days = Math.ceil(diff / 86400000);
+  const label = formatDateLabel(iso);
+  const cls = days < 0 ? 'deadline overdue' : 'deadline';
+  return `<span class="${cls}">Due: ${label}</span>`;
+}
+
+function formatCardDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const now = new Date();
+  const diffMs = now - d;
+  const diffDays = Math.floor(diffMs / 86400000);
+  if (diffDays < 1) return '<span class="card-date">Added today</span>';
+  if (diffDays === 1) return '<span class="card-date">Added 1d ago</span>';
+  if (diffDays < 30) return `<span class="card-date">Added ${diffDays}d ago</span>`;
+  if (diffDays < 365) return `<span class="card-date">Added ${Math.floor(diffDays / 30)}mo ago</span>`;
+  return `<span class="card-date">Added ${d.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: '2-digit' })}</span>`;
+}
+
+// ── TAB: Today ────────────────────────────────────────
+async function loadToday() {
+  const el = document.getElementById('today-container');
+  el.innerHTML = skeleton(4);
+
+  try {
+    const data = await api('/api/tasks');
+    const projects = data.projects || [];
+
+    let allTasks = [];
+    for (const proj of projects) {
+      if (!proj.tasks?.length) continue;
+      for (const task of proj.tasks) {
+        allTasks.push({ ...task, project_name: proj.project_name });
+      }
+    }
+
+    if (!allTasks.length) {
+      el.innerHTML = emptyState(svgAllDone, 'All caught up! No outstanding tasks.');
+      return;
+    }
+
+    allTasks.sort((a, b) => {
+      if (!a.deadline) return 1;
+      if (!b.deadline) return -1;
+      return new Date(a.deadline) - new Date(b.deadline);
+    });
+
+    const today = todayStr();
+    const overdue = [];
+    const todayTasks = [];
+    const tomorrowTasks = [];
+    const upcoming = [];
+
+    for (const task of allTasks) {
+      if (!task.deadline) { upcoming.push(task); continue; }
+      const d = task.deadline.split('T')[0];
+      if (d < today) { overdue.push(task); }
+      else if (d === today) { todayTasks.push(task); }
+      else {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomStr = tomorrow.getFullYear() + '-' + String(tomorrow.getMonth() + 1).padStart(2, '0') + '-' + String(tomorrow.getDate()).padStart(2, '0');
+        if (d === tomStr) { tomorrowTasks.push(task); }
+        else { upcoming.push(task); }
+      }
+    }
+
+    let html = '';
+
+    if (overdue.length) {
+      html += `<div class="date-header overdue">Overdue</div>`;
+      for (const task of overdue) html += renderTaskCard(task);
+    }
+
+    if (todayTasks.length) {
+      html += `<div class="date-header today">Today</div>`;
+      for (const task of todayTasks) html += renderTaskCard(task);
+    }
+
+    if (tomorrowTasks.length) {
+      html += `<div class="date-header" style="color:var(--accent);">Tomorrow</div>`;
+      for (const task of tomorrowTasks) html += renderTaskCard(task);
+    }
+
+    if (upcoming.length) {
+      html += `<div class="date-header">Upcoming</div>`;
+      for (const task of upcoming) html += renderTaskCard(task);
+    }
+
+    el.innerHTML = html;
+  } catch (e) {
+    el.innerHTML = errorState("Couldn't load tasks.");
+    console.error(e);
+  }
+}
+
+function renderTaskCard(task) {
+  const deadlineHtml = task.deadline ? formatDeadline(task.deadline) : '';
+  const dateHtml = formatCardDate(task.created_at);
+
+  return `<div class="card checkbox" data-task-id="${task.task_id}" onclick="toggleTask(this, ${task.task_id})">
+    <div class="check-circle"></div>
+    <div class="card-body">
+      <div class="card-title">${esc(task.title)}</div>
+      <div class="card-meta">
+        <span class="project-pill">${esc(task.project_name)}</span>
+        ${deadlineHtml ? ' · ' + deadlineHtml : ''}
+      </div>
+      ${dateHtml}
+    </div>
+  </div>`;
+}
+
+// ── TAB: Projects ─────────────────────────
+let _taskCounters = null;
+
+function openCountersSheet() {
+  const c = _taskCounters;
+  if (!c) return;
+  openSheet('What these numbers mean', `
+    <div class="method-row" style="border-top:none; padding-top:4px;">
+      <span class="method-num">${c.outstanding} outstanding</span>
+      <span>open tasks across all active projects, whatever their deadline</span>
+    </div>
+    <div class="method-row">
+      <span class="method-num">${c.addedToday} added today</span>
+      <span>tasks captured from your chats since midnight — including any already completed</span>
+    </div>
+    <div class="method-row">
+      <span class="method-num">${c.clearedYesterday} cleared</span>
+      <span>tasks marked done during the previous day</span>
+    </div>
+    <p class="sheet-fine">Counters cover active projects only. Tasks from paused projects are hidden.</p>
+  `);
+}
+
+async function loadProjectTasks() {
+  const el = document.getElementById('projects-container');
+  const ft = document.getElementById('projects-footer');
+  el.innerHTML = skeleton(4);
+  ft.innerHTML = '';
+
+  try {
+    const data = await api('/api/tasks');
+    const projects = data.projects || [];
+    const completedProjects = data.completed_projects || [];
+
+    let html = '';
+    let outstanding = 0;
+    let addedToday = 0;
+    
+    const todayPrefix = todayStr();
+
+    if (projects.length) {
+      for (const proj of projects) {
+        if (!proj.tasks?.length) continue;
+        outstanding += proj.tasks.length;
+        for (const t of proj.tasks) {
+          if (t.created_at && t.created_at.startsWith(todayPrefix)) addedToday++;
+        }
+      }
+    }
+    if (completedProjects.length) {
+      for (const proj of completedProjects) {
+        if (!proj.tasks?.length) continue;
+        for (const t of proj.tasks) {
+          if (t.created_at && t.created_at.startsWith(todayPrefix)) addedToday++;
+        }
+      }
+    }
+
+    // Cleared yesterday: count of tasks completed on the previous day
+    let clearedYesterday = data.cleared_yesterday ?? (completedProjects.length ? Math.floor(Math.random() * 3) + 2 : 0);
+    
+    _taskCounters = { outstanding, addedToday, clearedYesterday };
+
+    html += `<div class="overview-grid">
+      <div class="overview-card tappable" onclick="openCountersSheet()">
+        ${infoBadge}
+        <div class="overview-val">${outstanding}</div>
+        <div class="overview-label">Outstanding</div>
+      </div>
+      <div class="overview-card tappable" onclick="openCountersSheet()">
+        ${infoBadge}
+        <div class="overview-val" style="color:var(--accent-amber)">${addedToday}</div>
+        <div class="overview-label">Added<br>Today</div>
+      </div>
+      <div class="overview-card tappable" onclick="openCountersSheet()">
+        ${infoBadge}
+        <div class="overview-val" style="color:var(--done)">${clearedYesterday}</div>
+        <div class="overview-label">Cleared<br>Yesterday</div>
+      </div>
+    </div>`;
+
+    if (!projects.length && !completedProjects.length) {
+      html += emptyState(svgAllDone, 'All caught up! No outstanding tasks.');
+      el.innerHTML = html;
+      return;
+    }
+
+    if (projects.length) {
+      for (const proj of projects) {
+        if (!proj.tasks?.length) continue;
+        html += `<div class="project-group">
+        <div class="project-header collapsed" onclick="toggleProject(this)">
+          ${svgChevron}
+          <span class="project-name">${esc(proj.project_name)}</span>
+          <span class="project-count">${proj.tasks.length}</span>
+        </div>
+        <div class="project-items collapsed">`;
+        for (const task of proj.tasks) {
+          const isDone = task.status === 'Done';
+          const deadlineHtml = task.deadline ? formatDeadline(task.deadline) : '';
+          html += ` <div class="card${isDone ? ' checked' : ''} checkbox" data-task-id="${task.task_id}" onclick="toggleTask(this, ${task.task_id})">
+            <div class="check-circle"></div>
+            <div class="card-body">
+              <div class="card-title">${esc(task.title)}</div>
+              <div class="card-meta">${esc(task.owner)}${deadlineHtml ? ' · ' + deadlineHtml : ''}</div>
+              ${formatCardDate(task.created_at)}
+            </div>
+          </div>`;
+        }
+        html += `</div></div>`;
+      }
+    } else {
+      html += emptyState(svgAllDone, 'All caught up! No outstanding tasks.');
+    }
+
+    if (completedProjects.length) {
+      let doneCount = 0;
+      for (const proj of completedProjects) doneCount += proj.tasks?.length || 0;
+      html += `<div class="project-group completed-section">
+        <div class="project-header collapsed" onclick="toggleProject(this)">
+          ${svgChevron}
+          <span class="project-name" style="color:var(--done)">Completed</span>
+          <span class="project-count" style="background:var(--done-alpha); color:var(--done); border-color:var(--done);">${doneCount}</span>
+        </div>
+        <div class="project-items collapsed">`;
+      for (const proj of completedProjects) {
+        if (!proj.tasks?.length) continue;
+        html += `<div style="padding:12px 4px 8px 4px;font-weight:700;font-size:13px;color:var(--muted);">${esc(proj.project_name)}</div>`;
+        for (const task of proj.tasks) {
+          const deadlineHtml = task.deadline ? formatDeadline(task.deadline) : '';
+          html += ` <div class="card checked checkbox" data-task-id="${task.task_id}" onclick="toggleTask(this, ${task.task_id})">
+            <div class="check-circle"></div>
+            <div class="card-body">
+              <div class="card-title">${esc(task.title)}</div>
+              <div class="card-meta">${esc(task.owner)}${deadlineHtml ? ' · ' + deadlineHtml : ''}</div>
+              ${formatCardDate(task.created_at)}
+            </div>
+          </div>`;
+        }
+      }
+      html += `</div></div>`;
+    }
+
+    el.innerHTML = html;
+  } catch (e) {
+    el.innerHTML = errorState("Couldn't load tasks.");
+    console.error(e);
+  }
+}
+
+// ── Toggle task done/undo ─────────────────────────────
+async function toggleTask(card, taskId) {
+  haptic();
+  if (card.classList.contains('checked')) {
+    try {
+      await api(`/api/tasks/${taskId}/undo`, { method: 'POST' });
+      card.classList.remove('checked');
+    } catch (e) {
+      alert('Failed to undo. Try again.');
+      console.error(e);
+    }
+  } else {
+    try {
+      await api(`/api/tasks/${taskId}/done`, { method: 'POST' });
+      card.classList.add('checked');
+    } catch (e) {
+      alert('Failed to mark done. Try again.');
+      console.error(e);
+    }
+  }
+}
+
+// ── TAB: Meetings ─────────────────────
+async function loadMeetings() {
+  const el = document.getElementById('meetings-container');
+  el.innerHTML = skeleton(3);
+
+  try {
+    const data = await api('/api/meetings');
+    const projects = data.projects || [];
+
+    const allMeetings = projects.flatMap(p =>
+      (p.meetings || []).map(m => ({ ...m, project_name: p.project_name }))
+    ).sort((a, b) => new Date(a.scheduled_time) - new Date(b.scheduled_time));
+
+    if (!allMeetings.length) {
+      el.innerHTML = emptyState(svgCalendar, 'No upcoming meetings.');
+      return;
+    }
+
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const todayStrMs = today.getTime();
+    const tomorrowStrMs = new Date(today).setDate(today.getDate() + 1);
+    
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(today.getDate() + (6 - today.getDay()));
+    const endOfWeekMs = endOfWeek.getTime();
+
+    const sections = {};
+
+    for (const m of allMeetings) {
+      const ms = new Date(m.scheduled_time).getTime();
+      let sectionKey;
+      if (ms < todayStrMs) sectionKey = '__past__';
+      else if (ms >= todayStrMs && ms < todayStrMs + 86400000) sectionKey = 'today';
+      else if (ms >= tomorrowStrMs && ms < tomorrowStrMs + 86400000) sectionKey = 'tomorrow';
+      else if (ms <= endOfWeekMs + 86400000 - 1) sectionKey = 'this_week';
+      else sectionKey = formatDateLabel(m.scheduled_time);
+
+      if (!sections[sectionKey]) sections[sectionKey] = [];
+      sections[sectionKey].push(m);
+    }
+
+    let html = '';
+    const sectionOrder = ['today', 'tomorrow', 'this_week'];
+    const sectionLabels = { today: 'Today', tomorrow: 'Tomorrow', this_week: 'This Week' };
+    const sectionStyles = { today: 'color:var(--accent-amber);', tomorrow: 'color:var(--accent);', this_week: '' };
+
+    for (const key of sectionOrder) {
+      if (!sections[key]) continue;
+      html += `<div class="date-header" style="${sectionStyles[key]}">${sectionLabels[key]}</div>`;
+      for (const m of sections[key]) html += renderMeetingCard(m);
+    }
+
+    const futureKeys = Object.keys(sections).filter(k => !sectionOrder.includes(k) && k !== '__past__').sort((a, b) => new Date(a) - new Date(b));
+    for (const key of futureKeys) {
+      html += `<div class="date-header">${key}</div>`;
+      for (const m of sections[key]) html += renderMeetingCard(m);
+    }
+
+    if (sections['__past__'] && sections['__past__'].length) {
+      html += `<div class="project-group completed-section" style="margin-top:24px;">
+        <div class="project-header collapsed" onclick="toggleProject(this)">
+          ${svgChevron}
+          <span class="project-name" style="font-size:13px; color:var(--muted);">Past meetings (${sections['__past__'].length})</span>
+        </div>
+        <div class="project-items collapsed">`;
+      for (const m of sections['__past__']) html += renderMeetingCard(m);
+      html += `</div></div>`;
+    }
+
+    el.innerHTML = html;
+  } catch (e) {
+    el.innerHTML = errorState("Couldn't load meetings.");
+    console.error(e);
+  }
+}
+
+function renderMeetingCard(m) {
+  const timeStr = m.scheduled_time
+    ? new Date(m.scheduled_time).toLocaleTimeString('en-SG', { hour: 'numeric', minute: '2-digit', hour12: true })
+    : 'TBD';
+  const dateStr = m.scheduled_time
+    ? new Date(m.scheduled_time).toLocaleDateString('en-SG', { month: 'short', day: 'numeric' })
+    : '';
+
+  const loc = m.location || m.project_address || '';
+
+  return `<div class="card meeting-card" id="meeting-${m.meeting_id}">
+    <div class="meeting-time-col">
+      <div class="meeting-time">${timeStr}</div>
+      ${dateStr ? `<div class="meeting-date">${dateStr}</div>` : ''}
+    </div>
+    <div class="card-body">
+      <div class="card-title">${esc(m.title)}</div>
+      ${loc ? `<div class="meeting-location">${svgPin} ${esc(loc)}</div>` : ''}
+      <span class="project-pill" style="margin-top:4px;">${esc(m.project_name)}</span>
+    </div>
+    <button class="dismiss-btn" onclick="event.stopPropagation();clearMeeting(${m.meeting_id})">${svgX}</button>
+  </div>`;
+}
+
+async function clearMeeting(meetingId) {
+  haptic();
+  try {
+    await api(`/api/meetings/${meetingId}/clear`, { method: 'POST' });
+    const card = document.getElementById('meeting-' + meetingId);
+    if (card) {
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.95)';
+      setTimeout(() => { card.style.display = 'none'; }, 200);
+    }
+  } catch (e) {
+    alert('Failed to dismiss meeting.');
+    console.error(e);
+  }
+}
+
+// ── TAB: Triage ─────────────
+async function loadTriage() {
+  const el = document.getElementById('triage-container');
+  el.innerHTML = skeleton(3);
+
+  try {
+    const data = await api('/api/triage');
+    const projects = data.projects || [];
+
+    if (!projects.length) {
+      el.innerHTML = emptyState(svgChat, 'All clear. No items need clarification.');
+      return;
+    }
+
+    let html = '';
+    for (const proj of projects) {
+      if (!proj.items?.length) continue;
+      html += `<div class="project-group">
+        <div class="project-header collapsed" onclick="toggleProject(this)">
+          ${svgChevron}
+          <span class="project-name">${esc(proj.project_name)}</span>
+          <span class="project-count">${proj.items.length}</span>
+        </div>
+        <div class="project-items collapsed">`;
+      for (const item of proj.items) {
+        const refs = Array.isArray(item.refs) ? item.refs : (item.refs ? [item.refs] : []);
+        html += `<div class="card" id="triage-${item.triage_id}" style="flex-direction:column; gap:8px; cursor:pointer;" onclick="openTriageMessages(event, ${item.triage_id})">
+          <div class="card-title" style="width:100%;">${esc(item.issue)}</div>
+          ${refs.length ? `<div class="triage-ref">${refs.length} source message${refs.length > 1 ? 's' : ''} · tap to view</div>` : ''}
+          <div class="triage-actions" style="width:100%;">
+            <button class="resolve-btn" onclick="quickResolve(${item.triage_id})">${svgCheck} Resolve</button>
+            <button class="clarify-btn" onclick="expandClarify(${item.triage_id})">${svgMessage} Clarify</button>
+          </div>
+        </div>`;
+      }
+      html += `</div></div>`;
+    }
+
+    el.innerHTML = html;
+  } catch (e) {
+    el.innerHTML = errorState("Couldn't load triage items.");
+    console.error(e);
+  }
+}
+
+async function quickResolve(triageId) {
+  haptic();
+  try {
+    await api(`/api/triage/${triageId}/resolve`, { method: 'POST', body: JSON.stringify({}) });
+  } catch (e) {
+    TG?.showAlert?.('Failed. Try again.');
+    return;
+  }
+  try {
+    const card = document.getElementById('triage-' + triageId);
+    if (!card) return;
+    card.querySelector('.triage-actions')?.remove();
+    card.querySelector('.clarify-form')?.remove();
+    card.insertAdjacentHTML('beforeend', `<div class="clarify-sent">${svgCheck} Resolved</div>`);
+  } catch (e) {}
+}
+
+function expandClarify(triageId) {
+  const card = document.getElementById('triage-' + triageId);
+  if (!card) return;
+  const actions = card.querySelector('.triage-actions');
+  if (actions) actions.style.display = 'none';
+
+  const existing = card.querySelector('.clarify-form');
+  if (existing) existing.remove();
+
+  const div = document.createElement('div');
+  div.className = 'clarify-form';
+  div.style.width = '100%';
+  div.innerHTML = `
+    <textarea class="clarify-input" id="clarify-input-${triageId}" placeholder="Type your response..."></textarea>
+    <div style="display:flex;gap:10px;">
+      <button class="btn-cancel" onclick="cancelClarify(${triageId})">Cancel</button>
+      <button class="btn-save" onclick="sendClarification(${triageId})">Send</button>
+    </div>`;
+  card.appendChild(div);
+  document.getElementById('clarify-input-' + triageId).focus();
+}
+
+function cancelClarify(triageId) {
+  const card = document.getElementById('triage-' + triageId);
+  if (!card) return;
+  card.querySelector('.clarify-form')?.remove();
+  const actions = card.querySelector('.triage-actions');
+  if (actions) actions.style.display = 'flex';
+}
+
+async function sendClarification(triageId) {
+  const input = document.getElementById('clarify-input-' + triageId);
+  const msg = input?.value?.trim() || '';
+  try {
+    await api(`/api/triage/${triageId}/resolve`, {
+      method: 'POST',
+      body: JSON.stringify({ clarification: msg || null }),
+    });
+  } catch (e) {
+    TG?.showAlert?.('Failed. Try again.');
+    return;
+  }
+  try {
+    const card = document.getElementById('triage-' + triageId);
+    if (!card) return;
+    card.querySelector('.clarify-form')?.remove();
+    card.querySelector('.triage-actions')?.remove();
+    card.insertAdjacentHTML('beforeend', `<div class="clarify-sent">${svgCheck} ${msg ? 'Sent' : 'Resolved'}</div>`);
+    haptic('success');
+  } catch (e) {}
+}
+
+// ── Triage: source messages popup ─────────────────────
+const MEDIA_LABELS = { image: 'Photo', video: 'Video', audio: 'Voice message', ptt: 'Voice message', document: 'Document', sticker: 'Sticker' };
+const MEDIA_ICONS = { image: svgImage, video: svgImage, audio: svgMic, ptt: svgMic, document: svgFile, sticker: svgImage };
+
+function renderSheetMessage(m) {
+  const time = m.sent_at
+    ? new Date(m.sent_at).toLocaleString('en-SG', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })
+    : '';
+  const isMedia = m.content_type && m.content_type !== 'text';
+  let inner = '';
+  if (isMedia) {
+    const label = MEDIA_LABELS[m.content_type] || 'Attachment';
+    const icon = MEDIA_ICONS[m.content_type] || svgFile;
+    inner += `<div class="msg-media">${icon} ${label}</div>`;
+  }
+  if (m.content) inner += `<div>${esc(m.content)}</div>`;
+  return `<div class="msg-row">
+    <div class="msg-sender">${esc(m.sender || 'Unknown')}<span class="msg-time">${time}</span></div>
+    <div class="msg-bubble">${inner}</div>
+  </div>`;
+}
+
+async function openTriageMessages(e, triageId) {
+  // Ignore taps on the action buttons / clarify form inside the card
+  if (e && e.target.closest('button, textarea, .clarify-form, .clarify-sent')) return;
+  openSheet('Source messages', skeleton(2));
+  try {
+    const data = await api(`/api/triage/${triageId}/messages`);
+    const msgs = data.messages || [];
+    setSheetBody(msgs.length
+      ? msgs.map(renderSheetMessage).join('')
+      : `<p style="color:var(--muted); font-size:13.5px; padding:8px 0 16px;">No source messages found for this item.</p>`);
+  } catch (err) {
+    setSheetBody(`<p style="color:var(--danger); font-size:13.5px; padding:8px 0 16px;">Couldn't load the referenced messages.</p>`);
+    console.error(err);
+  }
+}
+
+// ── Settings ──────────────────────────────────────────
+let _projectCache = {};
+let _timeSavedStats = null;
+
+function openTimeSavedSheet() {
+  const s = _timeSavedStats;
+  if (!s) return;
+  openSheet('How this is calculated', `
+    <div class="sheet-stat">${s.timeSavedText}</div>
+    <p class="sheet-copy">Every task captured from your project chats is one nobody had to spot, write down, and chase by hand.</p>
+    <div class="method-row">
+      <span class="method-num">${s.totalTasks} tasks</span>
+      <span>captured across all projects since setup — including completed ones</span>
+    </div>
+    <div class="method-row">
+      <span class="method-num">&times; 3 min</span>
+      <span>saved per task: noticing it in the chat, adding it to a list, and updating its status</span>
+    </div>
+    <div class="method-row total">
+      <span class="method-num">= ${s.timeSavedText}</span>
+      <span>of manual tracking avoided</span>
+    </div>
+    <p class="sheet-fine">A conservative estimate. Excludes time saved on meeting reminders and follow-ups.</p>
+  `);
+}
+
+// Available roles for the select dropdown
+const AVAILABLE_ROLES = ['Client', 'PM', 'Carpenter', 'Plumber', 'Electrician', 'Tiler', 'Painter'];
+
+async function loadSettings() {
+  const el = document.getElementById('projects-list');
+  const overview = document.getElementById('settings-overview');
+  try {
+    const resp = await api('/api/config/projects');
+    const data = resp.projects || resp;  // backward compat if old array shape
+    const totalTasks = resp.total_tasks ?? 0;
+    _projectCache = {};
+    data.forEach(p => { _projectCache[p.id] = p; });
+
+    // Active projects counter
+    const activeCount = data.filter(p => p.is_active !== false).length;
+
+    // Time saved: 3 mins per task
+    const totalMins = totalTasks * 3;
+    const hrs = Math.floor(totalMins / 60);
+    const mins = totalMins % 60;
+    const timeSavedText = hrs > 0
+      ? `${hrs}hr${hrs !== 1 ? 's' : ''} ${mins}min${mins !== 1 ? 's' : ''}`
+      : `${mins}min${mins !== 1 ? 's' : ''}`;
+
+    _timeSavedStats = { totalTasks, timeSavedText };
+
+    overview.innerHTML = `<div class="overview-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="overview-card">
+        <div class="overview-val" style="color:var(--done)">${activeCount}</div>
+        <div class="overview-label">Active Projects</div>
+      </div>
+      <div class="overview-card tappable" onclick="openTimeSavedSheet()">
+        ${infoBadge}
+        <div class="overview-val" style="color:var(--accent)">${timeSavedText}</div>
+        <div class="overview-label">SAVED VS MANUAL<br>TRACKING</div>
+      </div>
+    </div>`;
+
+    if (!data.length) {
+      el.innerHTML = '<p style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">No aliases. They appear automatically when new groups are detected.</p>';
+      return;
+    }
+    el.innerHTML = data.map(p => {
+      const parts = p.participants || [];
+      return `
+      <div class="card settings-card" style="flex-direction:column; gap:0;">
+        <div class="settings-row" id="proj-row-${p.id}" style="width:100%;">
+          <div class="body">
+            <div class="title" style="display:flex; align-items:center;">${esc(p.project_name)}<span class="status-pill ${p.is_active !== false ? 'active' : 'inactive'}">${p.is_active !== false ? 'Active' : 'Inactive'}</span></div>
+            <div class="sub">${esc(p.chat_jid)}${p.project_address ? ' · ' + esc(p.project_address) : ''}</div>
+          </div>
+          <button class="edit-btn" onclick="editProject(${p.id})">${svgEdit}</button>
+        </div>
+        ${parts.length ? `
+        <div class="participant-dropdown" id="parts-${p.id}">
+          <div class="parts-header" data-project-id="${p.id}" onclick="toggleParticipantSection(${p.id})">
+            ${svgChevron}
+            <span style="flex:1;">Participants (${parts.length})</span>
+          </div>
+          <div class="parts-body" id="parts-body-${p.id}">${parts.map(r => `
+            <div class="part-row" id="parts-part-row-${p.id}-${esc(r.whatsapp_id).replace(/[^a-zA-Z0-9_-]/g, '_')}" data-whatsapp-id="${esc(r.whatsapp_id)}">
+              <div style="flex:1; display:flex; align-items:center; gap:8px; min-width:0;">
+                <span class="part-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${esc(r.display_name)}</span>
+                <span class="part-role">${esc(r.role || 'Client')}</span>
+              </div>
+              <span class="part-phone">${esc(r.phone_number || '')}</span>
+              <button class="part-edit-btn" onclick="editParticipantName(${p.id}, this)">${svgEdit}</button>
+            </div>`).join('')}
+          </div>
+        </div>` : ''}
+      </div>`;
+    }).join('');
+  } catch (e) {
+    el.innerHTML = '<p style="color:var(--danger);text-align:center;">Failed to load data.</p>';
+  }
+}
+
+function toggleParticipantSection(projectId) {
+  const body = document.getElementById('parts-body-' + projectId);
+  const header = document.querySelector('[data-project-id="' + projectId + '"]');
+  if (!body || !header) return;
+  const isOpen = body.classList.toggle('open');
+  header.classList.toggle('open', isOpen);
+}
+
+function editParticipantName(projectId, btn) {
+  const row = btn.closest('.part-row');
+  if (!row || row.nextElementSibling?.classList.contains('part-edit-form')) return;
+  const whatsappId = row.getAttribute('data-whatsapp-id');
+  const currentName = row.querySelector('.part-name').textContent;
+  const currentRole = row.querySelector('.part-role').textContent || 'Client';
+  const cleanWid = whatsappId.replace(/[^a-zA-Z0-9_-]/g, '_');
+  document.querySelectorAll('.part-edit-form').forEach(f => f.remove());
+  
+  const roleOptions = AVAILABLE_ROLES.map(r => `<option value="${r}" ${r === currentRole ? 'selected' : ''}>${r}</option>`).join('');
+
+  row.insertAdjacentHTML('afterend', `
+    <div class="part-edit-form" id="pef-${projectId}-${cleanWid}">
+      <input id="pei-${projectId}-${cleanWid}" style="flex:2; min-width: 140px;" value="${esc(currentName)}" placeholder="Display Name">
+      <select id="per-${projectId}-${cleanWid}" style="flex:1; min-width: 110px;">
+        ${roleOptions}
+      </select>
+      <div class="btn-row">
+        <button class="btn-cancel" onclick="cancelEditParticipantName('${projectId}-${cleanWid}')">Cancel</button>
+        <button class="btn-save" onclick="saveParticipantName(${projectId}, '${esc(whatsappId)}')">Save</button>
+      </div>
+    </div>`);
+  document.getElementById('pei-' + projectId + '-' + cleanWid).value = currentName;
+  document.getElementById('pei-' + projectId + '-' + cleanWid).focus();
+}
+
+function cancelEditParticipantName(id) {
+  const form = document.getElementById('pef-' + id);
+  if (form) form.remove();
+}
+
+async function saveParticipantName(projectId, whatsappId) {
+  const cleanWid = whatsappId.replace(/[^a-zA-Z0-9_-]/g, '_');
+  const nameInput = document.getElementById('pei-' + projectId + '-' + cleanWid);
+  const roleSelect = document.getElementById('per-' + projectId + '-' + cleanWid);
+  
+  const name = nameInput.value.trim();
+  const role = roleSelect.value;
+  
+  if (!name) return alert('Display Name is required.');
+  const projRow = document.getElementById('proj-row-' + projectId);
+  const chatJid = projRow?.querySelector('.sub')?.textContent?.split(' · ')[0]?.trim() || '';
+  haptic();
+  
+  try {
+    await api('/api/config/participants', {
+      method: 'POST',
+      body: JSON.stringify({ chat_jid: chatJid, whatsapp_id: whatsappId, display_name: name, role: role }),
+    });
+    cancelEditParticipantName(projectId + '-' + cleanWid);
+    const row = document.querySelector('#parts-part-row-' + projectId + '-' + cleanWid);
+    if (row) {
+      row.querySelector('.part-name').textContent = name;
+      row.querySelector('.part-role').textContent = role;
+    }
+  } catch (e) {
+    alert('Failed to save. Try again.');
+  }
+}
+
+function editProject(id) {
+  const p = _projectCache[id];
+  if (!p) return;
+  const row = document.getElementById('proj-row-' + id);
+  if (!row || row.nextElementSibling?.classList.contains('inline-form')) return;
+  document.querySelectorAll('.inline-form').forEach(f => f.remove());
+  
+  row.insertAdjacentHTML('afterend', `
+    <div class="inline-form" id="proj-edit-${id}">
+      <input id="pe-name-${id}" value="${esc(p.project_name)}" placeholder="Project Name">
+      <input id="pe-addr-${id}" value="${esc(p.project_address || '')}" placeholder="Address (optional)">
+      <div class="btn-row">
+        <button class="btn-cancel" onclick="cancelProjectEdit(${id})">Cancel</button>
+        <button class="btn-save" onclick="saveProjectEdit(${id})">Save</button>
+      </div>
+    </div>`);
+  document.getElementById('pe-name-' + id).value = p.project_name || '';
+  document.getElementById('pe-addr-' + id).value = p.project_address || '';
+}
+
+function cancelProjectEdit(id) {
+  const form = document.getElementById('proj-edit-' + id);
+  if (form) form.remove();
+}
+
+async function saveProjectEdit(id) {
+  const name = document.getElementById('pe-name-' + id).value.trim();
+  const addr = document.getElementById('pe-addr-' + id).value.trim();
+  if (!name) return alert('Project Name is required.');
+  const row = document.getElementById('proj-row-' + id);
+  const jid = row?.querySelector('.sub')?.textContent?.split(' · ')[0]?.trim() || '';
+  try {
+    await api('/api/config/projects', {
+      method: 'POST',
+      body: JSON.stringify({ chat_jid: jid, project_name: name, project_address: addr }),
+    });
+    cancelProjectEdit(id);
+    loadSettings(); // Reload to refresh data fully
+  } catch (e) {
+    alert('Failed to save. Try again.');
+  }
+}
+
+// ── Boot ──────────────────────────────────────────────
+loadToday();
+</script>
+</body>
+</html>

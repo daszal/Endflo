@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 150" fill="none">
+  <text x="53" y="92" font-family="Manrope, sans-serif" font-weight="800" font-size="94" letter-spacing="-4" fill="#F6F5F0">endflo</text>
+  <circle cx="24" cy="112" r="7.5" fill="#F6F5F0"></circle>
+  <path d="M 24 112 C 37 112, 37 94, 50 94 C 64 94, 64 126, 78 126 C 91 126, 91 101, 104 101 C 116 101, 116 120, 128 120 C 139 120, 139 106, 150 106 C 161 106, 161 112, 172 112 L 344 112" stroke="#F6F5F0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M 344 101 L 364 112 L 344 123 Z" fill="#F6F5F0"></path>
+</svg>

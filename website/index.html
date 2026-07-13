@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endflo | Automated Background Workflows</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Steep Colors */
+            --color-ink: #17191c;
+            --color-pure-white: #ffffff;
+            --color-fog: #f7f7f8;
+            --color-ash: #4c4c4c;
+            --color-graphite: #777b86;
+            --color-dove: #a3a6af;
+            --color-slate: #8b8c8d;
+            --color-rust: #5d2a1a;
+            --color-apricot-wash: #fbe1d1;
+            --color-sky-wash: #d3e3fc;
+
+            /* Typography */
+            --font-signifier: 'Source Serif 4', 'Georgia', serif;
+            --font-sohne: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+            /* Shadows */
+            --shadow-subtle: rgba(4, 23, 43, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.1) 0px 8px 10px -6px;
+        }
+
+        /* Essential for smooth scroll library */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        
+        body {
+            font-family: var(--font-sohne);
+            background-color: var(--color-pure-white);
+            color: var(--color-ink);
+            line-height: 1.38;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+            letter-spacing: -0.009em;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-signifier);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--color-ink);
+        }
+        h1 {
+            font-size: 64px;
+            letter-spacing: -1.6px;
+        }
+        h2 {
+            font-size: 44px;
+            letter-spacing: -0.66px;
+        }
+        h3 {
+            font-family: var(--font-sohne);
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+        }
+        p {
+            color: var(--color-ash);
+            font-size: 18px;
+            line-height: 1.35;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.009em;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 80px 0; }
+
+        /* Steep: no gradient text — keep headlines solid Ink */
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-ink);
+            color: var(--color-pure-white);
+            padding: 8px 20px;
+            border-radius: 9999px;
+            font-weight: 450;
+            font-size: 15px;
+            letter-spacing: -0.009em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #2d2f33;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        /* Text Link Button — secondary action */
+        .btn-text {
+            display: inline-block;
+            color: var(--color-ink);
+            font-weight: 450;
+            font-size: 15px;
+            letter-spacing: -0.009em;
+            padding: 8px 16px;
+            transition: opacity 0.2s ease;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .btn-text:hover { opacity: 0.7; }
+
+        .btn-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        header {
+            padding: 0;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            height: 64px;
+            border-bottom: 1px solid rgba(163, 166, 175, 0.3);
+            background: var(--color-pure-white);
+            z-index: 100;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo-img {
+            height: 48px;
+            margin-left: 0;
+            mix-blend-mode: multiply;
+            width: auto;
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding-top: 10rem;
+            position: relative;
+        }
+        /* Warm radial glow behind the hero — Steep signature */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, rgba(251, 225, 209, 0.35) 0%, rgba(251, 225, 209, 0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .hero h1 {
+            font-size: 64px;
+            max-width: 800px;
+            margin: 0 auto 1.5rem auto;
+            letter-spacing: -1.6px;
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 560px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--color-ash);
+        }
+
+        /* Alternating section backgrounds */
+        .section-fog {
+            background-color: var(--color-fog);
+        }
+        .section-white {
+            background-color: var(--color-pure-white);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 3rem;
+        }
+        .problem-card {
+            background: var(--color-pure-white);
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: rgba(4, 23, 43, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.12) 0px 24px 30px -5px, rgba(0, 0, 0, 0.1) 0px 10px 14px -6px;
+        }
+        .problem-card h3 {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--color-ink);
+        }
+        .problem-card p {
+            font-size: 16px;
+            color: var(--color-graphite);
+        }
+
+        /* Accent card — one card gets the warm tint */
+        .problem-card.warm {
+            background: var(--color-apricot-wash);
+        }
+
+        .steps {
+            list-style: none;
+            padding: 0;
+            margin-top: 3rem;
+            max-width: 700px;
+            counter-reset: step-counter;
+        }
+        .steps li {
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2.5rem;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: -0.15rem;
+            background-color: var(--color-apricot-wash);
+            color: var(--color-rust);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: -0.009em;
+        }
+        .steps strong {
+            color: var(--color-ink);
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .steps li p {
+            font-size: 16px;
+            color: var(--color-graphite);
+            margin-bottom: 0;
+        }
+
+        footer {
+            background-color: var(--color-ink);
+            color: var(--color-pure-white);
+            padding: 96px 0;
+            text-align: center;
+        }
+        footer h2 {
+            font-size: 44px;
+            margin-bottom: 1.25rem;
+            color: var(--color-pure-white);
+        }
+        footer p {
+            color: var(--color-dove);
+            max-width: 500px;
+            margin: 0 auto 2.5rem auto;
+        }
+        footer .btn {
+            background-color: var(--color-pure-white);
+            color: var(--color-ink);
+        }
+        footer .btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            h1, .hero h1 { font-size: 44px; letter-spacing: -0.66px; }
+            h2, footer h2 { font-size: 36px; }
+            section { padding: 64px 0; }
+            .hero { padding-top: 8rem; }
+        }
+
+        /* --- Scroll Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.25s; }
+        .delay-3 { transition-delay: 0.4s; }
+    </style>
+</head>
+<body>
+
+    <header class="reveal active">
+        <div class="container">
+            <nav>
+                <img src="logo-endflo_cropped.png" alt="Endflo: Turning mess into flow" class="logo-img">
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <h1 class="reveal">From Manual Mess to Automated Flows.</h1>
+            <p class="reveal delay-1">You started a business to do what you do best. Endflo builds invisible background systems that handle your administrative busywork automatically.</p>
+            <div class="btn-group reveal delay-2">
+                <a href="https://wa.me/6581041890?text=Hi%20Endflo,%20I%20want%20to%20stop%20doing%20admin%20work." class="btn" target="_blank">Stop Doing Admin Work</a>
+                <a href="#how-it-works" class="btn-text">See how it works</a>
+            </div>
+        </section>
+
+        <section class="section-fog" id="how-it-works">
+            <div class="container">
+                <h2 class="reveal">The Manual Mess is Costing You.</h2>
+                <p class="reveal delay-1">You don't need another complicated app to manage. You need the apps you already use to work for you.</p>
+                
+                <div class="problem-grid">
+                    <div class="problem-card reveal delay-1">
+                        <h3>Lost Details</h3>
+                        <p>Important client requests get buried in endless WhatsApp chats or email chains.</p>
+                    </div>
+                    <div class="problem-card warm reveal delay-2">
+                        <h3>Double Data Entry</h3>
+                        <p>You spend your evenings copying information into calendars and to-do lists.</p>
+                    </div>
+                    <div class="problem-card reveal delay-3">
+                        <h3>Dropped Balls</h3>
+                        <p>Because things are messy, sometimes a deadline is missed or a client is forgotten.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-white">
+            <div class="container">
+                <h2 class="reveal">You Do The Work. We Do The Tracking.</h2>
+                <p class="reveal delay-1">We build custom workflows that act like an invisible project manager working in the background 24/7.</p>
+                
+                <ol class="steps">
+                    <li class="reveal">
+                        <strong>You Communicate Normally</strong> 
+                        <p>You chat with your clients on WhatsApp or your preferred platform just like you always do.</p>
+                    </li>
+                    <li class="reveal">
+                        <strong>Endflo Captures the Details</strong> 
+                        <p>Our system silently understands what is happening, pulling out new tasks, deadlines, or decisions.</p>
+                    </li>
+                    <li class="reveal">
+                        <strong>Your Desk is Organized</strong> 
+                        <p>We automatically update your schedule and to-do lists without you lifting a finger.</p>
+                    </li>
+                    <li class="reveal">
+                        <strong>The Daily Wrap-Up</strong> 
+                        <p>At the end of the day, you get one simple text telling you exactly what needs your attention.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h2 class="reveal">Ready to focus on your business?</h2>
+            <p class="reveal delay-1">Let's look at the manual tasks slowing you down, and build a simple system to make them disappear.</p>
+            <div class="btn-group reveal delay-2">
+                <a href="https://wa.me/6581041890?text=Hi%20Endflo,%20let's%20talk%20about%20automating%20my%20workflows." class="btn" target="_blank">Chat with us on WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts for Smooth Scroll & Reveals -->
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <script>
+        // 1. Initialize Lenis Smooth Scrolling
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. Initialize Intersection Observer for the "Glide Up" reveals
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

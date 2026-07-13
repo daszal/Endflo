@@ -1,0 +1,24 @@
+:root {
+  /* base */
+  --ink: #0B0B0C;
+  --paper: #F6F5F0;
+  --mist: #DEDCD2;
+  --mist-strong: #B9B6A9;
+  --accent-indigo: #3F5DE0;
+  --accent-amber: #E0973F;
+  --success: #1F8A5B;
+  --danger: #C24A3B;
+
+  /* semantic aliases */
+  --text-primary: var(--ink);
+  --text-muted: #55534B;
+  --text-faint: #8A887E;
+  --surface-page: var(--ink);
+  --surface-card: var(--paper);
+  --surface-card-alt: #FFFFFF;
+  --border-subtle: var(--mist);
+  --border-strong: var(--mist-strong);
+  --link: var(--accent-indigo);
+  --link-hover: var(--accent-amber);
+  --focus-ring: var(--accent-indigo);
+}

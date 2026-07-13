@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Sora:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --font-display: 'Manrope', sans-serif;   /* wordmark + hero numerals only */
+  --font-body: 'Sora', sans-serif;         /* headings, UI, paragraphs */
+  --font-mono: 'Space Mono', monospace;    /* technical labels, captions */
+
+  --weight-display: 800;
+  --weight-heading: 700;
+  --weight-body: 400;
+  --weight-mono: 700;
+
+  --tracking-display: -0.045em;
+  --tracking-heading: -0.01em;
+  --tracking-mono-label: 0.14em;
+}
