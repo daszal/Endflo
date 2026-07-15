@@ -37,7 +37,8 @@ Just open `index.html` in a browser, or serve the folder with any static server.
 
 ## Placeholders to replace before launch
 
-- `hello@endflo.com` — all CTA/mailto links and the footer (site-wide)
+- Footer contact email is `mleeweirong@gmail.com` (fallback only — primary CTAs link to WhatsApp at `wa.me/6581041890`, site-wide)
+- WhatsApp number `6581041890` in all CTA links — swap once a dedicated business number is set up
 - Project timeline "two to four weeks" on `how-it-works.html` (copy doc had `[X to X weeks]`)
 - The pricing answer on `faq.html` (copy doc left it bracketed; a neutral "quote after mapping session" answer is in place)
 - Service categories are the illustrative ones from the copy doc — swap once the real service list is confirmed

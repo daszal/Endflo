@@ -349,6 +349,62 @@ p { margin: 0 0 var(--space-4); }
 }
 .flow-connector .head { fill: var(--mist-strong); }
 
+/* ---------- workflow diagrams (animated inline svg) ----------
+   Line-art on brand: ink/mist strokes, white panels, amber only
+   on the moving parts. GSAP loops them; without JS they render
+   as complete static diagrams. */
+.wf svg { width: 100%; height: auto; overflow: visible; }
+.wf .wf-line {
+  fill: none;
+  stroke: var(--mist-strong);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wf .wf-ink {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wf .wf-panel { fill: var(--surface-card-alt); stroke: var(--mist); stroke-width: 1.5; }
+.wf .wf-node { fill: var(--surface-card-alt); stroke: var(--mist-strong); stroke-width: 2.5; }
+.wf .wf-shape { fill: var(--surface-card-alt); stroke: var(--ink); stroke-width: 2.5; }
+.wf .wf-fill-ink { fill: var(--ink); }
+.wf .wf-dot { fill: var(--accent-amber); }
+.wf .wf-accent {
+  fill: none;
+  stroke: var(--accent-amber);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wf .wf-text { stroke: var(--mist); stroke-width: 4; stroke-linecap: round; }
+.wf .wf-label {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: var(--tracking-mono-label);
+  text-transform: uppercase;
+  fill: var(--text-faint);
+}
+.wf .wf-count {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 20px;
+  fill: var(--ink);
+}
+
+/* homepage: whatsapp inbox -> tasks + meetings */
+.inbox-anim { margin-top: var(--space-7); max-width: 880px; }
+
+/* services page: one flow diagram per service */
+.service-anim { max-width: 760px; margin-bottom: var(--space-6); }
+
+/* hero flow: task nodes that light up as the pulse passes */
+.hero-flow .flow-task { fill: var(--paper-faint); }
+
 /* ---------- statement (what endflo does) ---------- */
 .statement { max-width: 780px; }
 .statement h2 { font-size: clamp(30px, 4vw, 44px); }
@@ -415,13 +471,14 @@ p { margin: 0 0 var(--space-4); }
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-5);
 }
-.automate-grid .card { text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
+.automate-grid .card { display: flex; flex-direction: column; text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
 .automate-grid .card:hover { border-color: var(--ink); transform: translateY(-3px); }
 .automate-grid .card .go {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-4);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 12px;
@@ -558,8 +615,16 @@ p { margin: 0 0 var(--space-4); }
   transform-origin: 50% 0;
   transform: scaleY(0);
 }
-.tl-step { position: relative; padding-bottom: var(--space-8); }
+.tl-step {
+  position: relative;
+  padding-bottom: var(--space-8);
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: var(--space-6);
+  align-items: center;
+}
 .tl-step:last-child { padding-bottom: 0; }
+.tl-step .tl-anim { width: 100%; }
 .tl-step .tl-dot {
   position: absolute;
   left: -56px; top: 5px;
@@ -730,6 +795,8 @@ p { margin: 0 0 var(--space-4); }
   .hero { padding-top: calc(var(--header-h) + 56px); }
   .flow-connector svg { height: 160px; }
   .timeline { padding-left: 44px; }
+  .tl-step { grid-template-columns: 1fr; }
+  .tl-step .tl-anim { max-width: 240px; }
   .tl-step .tl-dot { left: -44px; }
 }
 

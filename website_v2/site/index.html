@@ -16,9 +16,9 @@
     <div class="wrap">
       <a class="logo" href="index.html" aria-label="Endflo home" style="color: var(--paper);">
         <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
-          <circle cx="14" cy="50" r="6.5" fill="currentColor"></circle>
-          <path d="M 14 50 C 23 50, 23 34, 33 34 C 43 34, 42 66, 52 66 C 60 66, 60 50, 64 50 L 74 50" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M 70 40 L 90 50 L 70 60 Z" fill="currentColor"></path>
+          <circle cx="13" cy="50" r="6.5" fill="currentColor"></circle>
+          <path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+          <path d="M75 40l20 10-20 10Z" fill="currentColor"></path>
         </svg>
         <span class="wordmark">endflo</span>
       </a>
@@ -29,7 +29,7 @@
         <a href="services.html">Services</a>
         <a href="how-it-works.html">How it works</a>
         <a href="faq.html">FAQ</a>
-        <a class="btn btn-primary" href="mailto:hello@endflo.com?subject=Free%20process%20audit">Get a free audit</a>
+        <a class="btn btn-primary" href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp</a>
       </nav>
     </div>
   </header>
@@ -47,7 +47,7 @@
           </h1>
           <p class="sub">Messy manual processes become automated workflows that run quietly in the background. You get your time back without lifting a finger.</p>
           <div class="hero-cta">
-            <a class="btn btn-primary btn-lg" href="mailto:hello@endflo.com?subject=Free%20process%20audit">Get a free process audit <i data-lucide="arrow-right"></i></a>
+            <a class="btn btn-primary btn-lg" href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp <i data-lucide="arrow-right"></i></a>
             <a class="btn btn-secondary btn-lg" href="how-it-works.html">See how it works</a>
           </div>
         </div>
@@ -56,6 +56,10 @@
         <svg viewBox="0 0 720 130" fill="none">
           <circle class="flow-node" cx="16" cy="65" r="8"></circle>
           <path class="flow-stroke" d="M 16 65 C 42 65, 42 26, 68 26 C 96 26, 96 96, 124 96 C 151 96, 151 42, 178 42 C 203 42, 203 82, 228 82 C 251 82, 251 58, 274 58 C 296 58, 296 65, 318 65 L 668 65"></path>
+          <circle class="flow-task" cx="400" cy="65" r="5.5"></circle>
+          <circle class="flow-task" cx="470" cy="65" r="5.5"></circle>
+          <circle class="flow-task" cx="540" cy="65" r="5.5"></circle>
+          <circle class="flow-task" cx="610" cy="65" r="5.5"></circle>
           <path class="flow-head" d="M 668 52 L 692 65 L 668 78 Z"></path>
           <circle class="flow-pulse" cx="16" cy="65" r="5"></circle>
         </svg>
@@ -117,6 +121,63 @@
           <h2>Run your business. We'll run the busywork.</h2>
           <p class="big">We map how work actually happens in your business, then automate it <em>end to end</em> on the tools you already use: WhatsApp, Telegram, Gmail, Slack, Discord. You won't get a new dashboard to check every morning. Your team won't need to learn new software.</p>
           <p class="big muted">The result is invisible automation. You stop thinking about the process because it stops needing you.</p>
+        </div>
+
+        <!-- messages arrive on the left, endflo reads them, tasks and
+             meetings appear on the right — the whole pitch in one loop -->
+        <div class="wf inbox-anim" data-anim="inbox" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 880 340" fill="none">
+            <!-- chat panel -->
+            <rect class="wf-panel" x="10" y="14" width="280" height="312" rx="20"></rect>
+            <text class="wf-label" x="34" y="48">WhatsApp</text>
+            <line class="wf-line" x1="34" y1="62" x2="266" y2="62" opacity="0.5"></line>
+            <g class="ix-bubble">
+              <rect class="wf-node" x="34" y="80" width="196" height="48" rx="12"></rect>
+              <line class="wf-text" x1="52" y1="98" x2="198" y2="98"></line>
+              <line class="wf-text" x1="52" y1="112" x2="160" y2="112"></line>
+            </g>
+            <g class="ix-bubble">
+              <rect class="wf-node" x="34" y="142" width="214" height="48" rx="12"></rect>
+              <line class="wf-text" x1="52" y1="160" x2="216" y2="160"></line>
+              <line class="wf-text" x1="52" y1="174" x2="182" y2="174"></line>
+            </g>
+            <g class="ix-bubble">
+              <rect class="wf-node" x="34" y="204" width="176" height="48" rx="12"></rect>
+              <line class="wf-text" x1="52" y1="222" x2="178" y2="222"></line>
+              <line class="wf-text" x1="52" y1="236" x2="140" y2="236"></line>
+            </g>
+            <!-- endflo connector: squiggle settles into a straight line -->
+            <path class="ix-flow wf-ink" d="M 302 170 C 324 170, 324 140, 346 140 C 368 140, 368 200, 390 200 C 412 200, 412 170, 434 170 L 552 170"></path>
+            <path class="wf-fill-ink" d="M 550 158 L 574 170 L 550 182 Z"></path>
+            <circle class="ix-dot wf-dot" cx="302" cy="170" r="6"></circle>
+            <!-- output panel -->
+            <rect class="wf-panel" x="590" y="14" width="280" height="312" rx="20"></rect>
+            <text class="wf-label" x="614" y="48">Tasks</text>
+            <g class="ix-task">
+              <rect class="wf-node" x="614" y="62" width="232" height="48" rx="10"></rect>
+              <rect class="wf-shape" x="628" y="77" width="18" height="18" rx="5"></rect>
+              <path class="ix-check wf-accent" d="M 632 86 L 636 91 L 643 81"></path>
+              <line class="wf-text" x1="660" y1="82" x2="806" y2="82"></line>
+              <line class="wf-text" x1="660" y1="96" x2="756" y2="96" opacity="0.55"></line>
+            </g>
+            <g class="ix-task">
+              <rect class="wf-node" x="614" y="120" width="232" height="48" rx="10"></rect>
+              <rect class="wf-shape" x="628" y="135" width="18" height="18" rx="5"></rect>
+              <path class="ix-check wf-accent" d="M 632 144 L 636 149 L 643 139"></path>
+              <line class="wf-text" x1="660" y1="140" x2="790" y2="140"></line>
+              <line class="wf-text" x1="660" y1="154" x2="740" y2="154" opacity="0.55"></line>
+            </g>
+            <text class="wf-label" x="614" y="212">Meetings</text>
+            <g class="ix-meet">
+              <rect class="wf-node" x="614" y="226" width="232" height="64" rx="10"></rect>
+              <rect class="wf-shape" x="628" y="244" width="26" height="26" rx="6"></rect>
+              <line class="wf-ink" x1="635" y1="238" x2="635" y2="248"></line>
+              <line class="wf-ink" x1="647" y1="238" x2="647" y2="248"></line>
+              <circle class="ix-meet-dot wf-dot" cx="641" cy="260" r="3.5"></circle>
+              <line class="wf-text" x1="668" y1="252" x2="810" y2="252"></line>
+              <line class="wf-text" x1="668" y1="268" x2="768" y2="268" opacity="0.55"></line>
+            </g>
+          </svg>
         </div>
       </div>
     </section>
@@ -197,7 +258,13 @@
             <p>Requests route themselves to the right person, with reminders built in.</p>
             <span class="go">Learn more <i data-lucide="arrow-right"></i></span>
           </a>
-          <a class="card" href="mailto:hello@endflo.com?subject=Free%20process%20audit">
+          <a class="card" href="services.html#project-management">
+            <div class="card-icon"><i data-lucide="list-checks"></i></div>
+            <h3>Project &amp; task management</h3>
+            <p>Tasks get assigned, tracked, and closed out right inside the chat your team already uses.</p>
+            <span class="go">Learn more <i data-lucide="arrow-right"></i></span>
+          </a>
+          <a class="card" href="https://wa.me/6581041890?text=Hi%2C%20I%20have%20a%20process%20that%27s%20taking%20up%20a%20lot%20of%20our%20team%27s%20time.%20Could%20we%20discuss%20whether%20Endflo%20can%20automate%20it%3F" target="_blank" rel="noopener">
             <div class="card-icon"><i data-lucide="message-circle"></i></div>
             <h3>Something else?</h3>
             <p>If a process eats your team's time, chances are we can automate it. Ask us.</p>
@@ -262,7 +329,7 @@
         </div>
         <h2 data-reveal>Less admin. More time.</h2>
         <p class="lede" data-reveal>Let us do the hard admin work. You focus on the business.</p>
-        <div data-reveal><a class="btn btn-primary btn-lg" href="mailto:hello@endflo.com?subject=Free%20workflow%20audit">Book a free workflow audit <i data-lucide="arrow-right"></i></a></div>
+        <div data-reveal><a class="btn btn-primary btn-lg" href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp <i data-lucide="arrow-right"></i></a></div>
       </div>
     </section>
 
@@ -274,9 +341,9 @@
         <div class="footer-brand">
           <a class="logo" href="index.html" style="color: var(--paper);">
             <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
-              <circle cx="14" cy="50" r="6.5" fill="currentColor"></circle>
-              <path d="M 14 50 C 23 50, 23 34, 33 34 C 43 34, 42 66, 52 66 C 60 66, 60 50, 64 50 L 74 50" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M 70 40 L 90 50 L 70 60 Z" fill="currentColor"></path>
+              <circle cx="13" cy="50" r="6.5" fill="currentColor"></circle>
+              <path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+              <path d="M75 40l20 10-20 10Z" fill="currentColor"></path>
             </svg>
             <span class="wordmark">endflo</span>
           </a>
@@ -293,8 +360,8 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <ul>
-            <li><a href="mailto:hello@endflo.com">hello@endflo.com</a></li>
-            <li><a href="mailto:hello@endflo.com?subject=Free%20process%20audit">Book a free audit</a></li>
+            <li><a href="mailto:mleeweirong@gmail.com">mleeweirong@gmail.com</a></li>
+            <li><a href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp</a></li>
           </ul>
         </div>
       </div>

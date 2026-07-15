@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services — Endflo</title>
-  <meta name="description" content="What we automate: invoicing, data entry, onboarding, inventory, and approvals — on the tools you already use.">
+  <meta name="description" content="What we automate: invoicing, data entry, onboarding, inventory, approvals, and project management — on the tools you already use.">
   <link rel="icon" type="image/svg+xml" href="assets/endflo-app-icon.svg">
   <link rel="stylesheet" href="css/site.css">
 </head>
@@ -16,9 +16,9 @@
     <div class="wrap">
       <a class="logo" href="index.html" aria-label="Endflo home" style="color: var(--paper);">
         <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
-          <circle cx="14" cy="50" r="6.5" fill="currentColor"></circle>
-          <path d="M 14 50 C 23 50, 23 34, 33 34 C 43 34, 42 66, 52 66 C 60 66, 60 50, 64 50 L 74 50" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M 70 40 L 90 50 L 70 60 Z" fill="currentColor"></path>
+          <circle cx="13" cy="50" r="6.5" fill="currentColor"></circle>
+          <path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+          <path d="M75 40l20 10-20 10Z" fill="currentColor"></path>
         </svg>
         <span class="wordmark">endflo</span>
       </a>
@@ -29,7 +29,7 @@
         <a href="services.html" aria-current="page">Services</a>
         <a href="how-it-works.html">How it works</a>
         <a href="faq.html">FAQ</a>
-        <a class="btn btn-primary" href="mailto:hello@endflo.com?subject=Free%20process%20audit">Get a free audit</a>
+        <a class="btn btn-primary" href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp</a>
       </nav>
     </div>
   </header>
@@ -53,6 +53,34 @@
             <span class="service-num">01</span>
             <h2>Invoicing &amp; Billing</h2>
           </div>
+        </div>
+        <!-- order closes -> invoice writes itself -> reminder -> paid -->
+        <div class="wf service-anim" data-anim="invoice" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 760 135" fill="none">
+            <line class="wf-line" x1="60" y1="65" x2="668" y2="65"></line>
+            <path class="wf-fill-ink" d="M 668 54 L 690 65 L 668 76 Z" opacity="0.35"></path>
+            <circle class="wf-node" cx="60" cy="65" r="9"></circle>
+            <text class="wf-label" x="60" y="102" text-anchor="middle">Order closes</text>
+            <g class="iv-doc">
+              <rect class="wf-shape" x="212" y="25" width="60" height="80" rx="8"></rect>
+              <line class="wf-text iv-tl" x1="226" y1="47" x2="258" y2="47"></line>
+              <line class="wf-text iv-tl" x1="226" y1="61" x2="252" y2="61"></line>
+              <line class="wf-text iv-tl" x1="226" y1="75" x2="258" y2="75"></line>
+              <line class="wf-accent iv-tl" x1="226" y1="91" x2="244" y2="91"></line>
+            </g>
+            <text class="wf-label" x="242" y="126" text-anchor="middle">Invoice</text>
+            <g class="iv-bell">
+              <path class="wf-ink" d="M 420 44 C 420 30, 424 24, 432 24 C 440 24, 444 30, 444 44 L 448 48 L 416 48 Z"></path>
+              <circle class="wf-dot" cx="432" cy="54" r="3"></circle>
+            </g>
+            <text class="wf-label" x="432" y="102" text-anchor="middle">Reminders</text>
+            <g class="iv-paid">
+              <circle class="wf-node" cx="590" cy="65" r="18"></circle>
+              <path class="iv-check wf-accent" d="M 581 65 L 588 72 L 600 57"></path>
+            </g>
+            <text class="wf-label" x="590" y="112" text-anchor="middle">Paid + synced</text>
+            <circle class="iv-dot wf-dot" cx="60" cy="65" r="6"></circle>
+          </svg>
         </div>
         <div class="pfr" data-reveal-group>
           <div class="pfr-card">
@@ -83,6 +111,27 @@
             <h2>Data Entry &amp; Reporting</h2>
           </div>
         </div>
+        <!-- two systems sync both ways; the weekly report builds itself -->
+        <div class="wf service-anim" data-anim="sync" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 760 155" fill="none">
+            <rect class="wf-shape" x="40" y="22" width="120" height="60" rx="12"></rect>
+            <text class="wf-label" x="100" y="57" text-anchor="middle">System A</text>
+            <rect class="wf-shape" x="600" y="22" width="120" height="60" rx="12"></rect>
+            <text class="wf-label" x="660" y="57" text-anchor="middle">System B</text>
+            <line class="wf-line" x1="176" y1="40" x2="584" y2="40"></line>
+            <line class="wf-line" x1="176" y1="64" x2="584" y2="64"></line>
+            <circle class="ds-dot1 wf-dot" cx="176" cy="40" r="5.5"></circle>
+            <circle class="ds-dot2 wf-dot" cx="584" cy="64" r="5.5"></circle>
+            <g class="ds-report">
+              <rect class="wf-node" x="330" y="92" width="100" height="52" rx="10"></rect>
+              <rect class="ds-bar wf-fill-ink" x="346" y="118" width="10" height="14"></rect>
+              <rect class="ds-bar wf-fill-ink" x="364" y="110" width="10" height="22"></rect>
+              <rect class="ds-bar wf-fill-ink" x="382" y="102" width="10" height="30"></rect>
+              <line class="wf-line" x1="400" y1="132" x2="416" y2="132" opacity="0.6"></line>
+            </g>
+            <text class="wf-label" x="450" y="126">Weekly report</text>
+          </svg>
+        </div>
         <div class="pfr" data-reveal-group>
           <div class="pfr-card">
             <span class="pfr-label">The problem</span>
@@ -111,6 +160,38 @@
             <span class="service-num">03</span>
             <h2>Customer Onboarding &amp; Follow-ups</h2>
           </div>
+        </div>
+        <!-- welcome sequence fires on schedule; team gets nudged at the end -->
+        <div class="wf service-anim" data-anim="onboard" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 760 150" fill="none">
+            <line class="wf-line" x1="60" y1="85" x2="700" y2="85"></line>
+            <circle class="wf-node" cx="60" cy="85" r="9"></circle>
+            <text class="wf-label" x="24" y="122">New customer</text>
+            <g class="ob-msg">
+              <rect class="wf-node" x="170" y="28" width="120" height="40" rx="10"></rect>
+              <line class="wf-text" x1="186" y1="48" x2="274" y2="48"></line>
+              <line class="wf-line" x1="230" y1="68" x2="230" y2="83" opacity="0.6"></line>
+            </g>
+            <text class="wf-label" x="230" y="122" text-anchor="middle">Day 0</text>
+            <g class="ob-msg">
+              <rect class="wf-node" x="340" y="28" width="120" height="40" rx="10"></rect>
+              <line class="wf-text" x1="356" y1="48" x2="444" y2="48"></line>
+              <line class="wf-line" x1="400" y1="68" x2="400" y2="83" opacity="0.6"></line>
+            </g>
+            <text class="wf-label" x="400" y="122" text-anchor="middle">Day 2</text>
+            <g class="ob-msg">
+              <rect class="wf-node" x="510" y="28" width="120" height="40" rx="10"></rect>
+              <line class="wf-text" x1="526" y1="48" x2="614" y2="48"></line>
+              <line class="wf-line" x1="570" y1="68" x2="570" y2="83" opacity="0.6"></line>
+            </g>
+            <text class="wf-label" x="570" y="122" text-anchor="middle">Day 7</text>
+            <g class="ob-bell">
+              <path class="wf-ink" d="M 668 62 C 668 48, 672 42, 680 42 C 688 42, 692 48, 692 62 L 696 66 L 664 66 Z"></path>
+              <circle class="wf-dot" cx="680" cy="72" r="3"></circle>
+            </g>
+            <text class="wf-label" x="680" y="122" text-anchor="middle">Team nudged</text>
+            <circle class="ob-dot wf-dot" cx="60" cy="85" r="6"></circle>
+          </svg>
         </div>
         <div class="pfr" data-reveal-group>
           <div class="pfr-card">
@@ -141,6 +222,35 @@
             <h2>Order &amp; Inventory Tracking</h2>
           </div>
         </div>
+        <!-- one live count, pushed to every channel, alert before zero -->
+        <div class="wf service-anim" data-anim="stock" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 760 155" fill="none">
+            <g class="st-boxes">
+              <rect class="wf-shape" x="44" y="78" width="28" height="20" rx="4"></rect>
+              <rect class="wf-shape" x="76" y="78" width="28" height="20" rx="4"></rect>
+              <rect class="wf-shape" x="60" y="54" width="28" height="20" rx="4"></rect>
+            </g>
+            <text class="wf-label" x="74" y="130" text-anchor="middle">Stock</text>
+            <line class="wf-line" x1="118" y1="75" x2="300" y2="75"></line>
+            <g class="st-card">
+              <rect class="wf-node" x="300" y="47" width="150" height="56" rx="12"></rect>
+              <text class="wf-label" x="316" y="72">Count</text>
+              <text class="st-count wf-count" x="434" y="84" text-anchor="end">128</text>
+            </g>
+            <g class="st-alert">
+              <circle class="wf-dot" cx="316" cy="124" r="5"></circle>
+              <text class="wf-label" x="330" y="128">Low-stock alert</text>
+            </g>
+            <path class="wf-line" d="M 456 75 C 520 75, 530 42, 600 42"></path>
+            <path class="wf-line" d="M 456 75 C 520 75, 530 108, 600 108"></path>
+            <circle class="wf-node" cx="612" cy="42" r="9"></circle>
+            <text class="wf-label" x="632" y="46">Channel A</text>
+            <circle class="wf-node" cx="612" cy="108" r="9"></circle>
+            <text class="wf-label" x="632" y="112">Channel B</text>
+            <circle class="st-dot1 wf-dot" cx="456" cy="75" r="5.5"></circle>
+            <circle class="st-dot2 wf-dot" cx="456" cy="75" r="5.5"></circle>
+          </svg>
+        </div>
         <div class="pfr" data-reveal-group>
           <div class="pfr-card">
             <span class="pfr-label">The problem</span>
@@ -170,6 +280,44 @@
             <h2>Internal Approvals &amp; Admin Requests</h2>
           </div>
         </div>
+        <!-- request routes itself through approvers and lands in the log -->
+        <div class="wf service-anim" data-anim="approve" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 760 150" fill="none">
+            <rect class="wf-node" x="40" y="50" width="120" height="50" rx="10"></rect>
+            <text class="wf-label" x="100" y="80" text-anchor="middle">Request</text>
+            <line class="wf-line" x1="166" y1="75" x2="318" y2="75"></line>
+            <g class="ap-person">
+              <circle class="wf-node" cx="340" cy="75" r="17"></circle>
+              <circle class="wf-ink" cx="340" cy="70" r="4.5" fill="none"></circle>
+              <path class="wf-ink" d="M 332 84 C 334 78, 346 78, 348 84"></path>
+              <g class="ap-badge">
+                <circle class="wf-node" cx="353" cy="61" r="8"></circle>
+                <path class="ap-check wf-accent" d="M 349 61 L 352 64 L 357 57"></path>
+              </g>
+            </g>
+            <text class="wf-label" x="340" y="122" text-anchor="middle">Ops lead</text>
+            <line class="wf-line" x1="364" y1="75" x2="496" y2="75"></line>
+            <g class="ap-person">
+              <circle class="wf-node" cx="518" cy="75" r="17"></circle>
+              <circle class="wf-ink" cx="518" cy="70" r="4.5" fill="none"></circle>
+              <path class="wf-ink" d="M 510 84 C 512 78, 524 78, 526 84"></path>
+              <g class="ap-badge">
+                <circle class="wf-node" cx="531" cy="61" r="8"></circle>
+                <path class="ap-check wf-accent" d="M 527 61 L 530 64 L 535 57"></path>
+              </g>
+            </g>
+            <text class="wf-label" x="518" y="122" text-anchor="middle">Finance</text>
+            <line class="wf-line" x1="542" y1="75" x2="646" y2="75"></line>
+            <g class="ap-log">
+              <rect class="wf-shape" x="646" y="47" width="64" height="56" rx="8"></rect>
+              <line class="wf-text" x1="660" y1="65" x2="696" y2="65"></line>
+              <line class="wf-text" x1="660" y1="77" x2="690" y2="77"></line>
+              <line class="wf-text" x1="660" y1="89" x2="696" y2="89"></line>
+            </g>
+            <text class="wf-label" x="678" y="126" text-anchor="middle">Logged</text>
+            <circle class="ap-dot wf-dot" cx="166" cy="75" r="6"></circle>
+          </svg>
+        </div>
         <div class="pfr" data-reveal-group>
           <div class="pfr-card">
             <span class="pfr-label">The problem</span>
@@ -189,6 +337,58 @@
       </div>
     </section>
 
+    <!-- ============ PROJECT MANAGEMENT ============ -->
+    <section class="service-block" id="project-management">
+      <div class="wrap">
+        <div class="service-head" data-reveal>
+          <div class="service-icon"><i data-lucide="list-checks"></i></div>
+          <div>
+            <span class="service-num">06</span>
+            <h2>Project &amp; Task Management</h2>
+          </div>
+        </div>
+        <!-- a task moves from to-do -> in progress -> done, right inside chat -->
+        <div class="wf service-anim" data-anim="pm" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 760 140" fill="none">
+            <text class="wf-label" x="90" y="30" text-anchor="middle">To do</text>
+            <rect class="wf-shape" x="20" y="40" width="140" height="62" rx="10"></rect>
+            <text class="wf-label" x="380" y="30" text-anchor="middle">In progress</text>
+            <rect class="wf-shape" x="310" y="40" width="140" height="62" rx="10"></rect>
+            <text class="wf-label" x="670" y="30" text-anchor="middle">Done</text>
+            <rect class="wf-shape" x="600" y="40" width="140" height="62" rx="10"></rect>
+            <line class="wf-line" x1="160" y1="71" x2="310" y2="71" opacity="0.6"></line>
+            <line class="wf-line" x1="450" y1="71" x2="600" y2="71" opacity="0.6"></line>
+            <g class="pm-card">
+              <rect class="wf-node" x="34" y="53" width="112" height="38" rx="8"></rect>
+              <line class="wf-text" x1="48" y1="68" x2="118" y2="68"></line>
+              <line class="wf-text" x1="48" y1="80" x2="96" y2="80" opacity="0.55"></line>
+            </g>
+            <g class="pm-check">
+              <circle class="wf-node" cx="670" cy="71" r="17"></circle>
+              <path class="pm-tick wf-accent" d="M 661 71 L 667 78 L 680 63"></path>
+            </g>
+            <circle class="pm-dot wf-dot" cx="160" cy="71" r="5.5"></circle>
+          </svg>
+        </div>
+        <div class="pfr" data-reveal-group>
+          <div class="pfr-card">
+            <span class="pfr-label">The problem</span>
+            <p>Tasks and meeting notes live scattered across chats, spreadsheets, and someone's memory. Nothing is tracked until something gets missed.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card">
+            <span class="pfr-label">The fix</span>
+            <p>A shared task board lives right inside WhatsApp or Telegram. Tasks get assigned, meetings get logged, and every update lands with the right person automatically.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card result">
+            <span class="pfr-label">The result</span>
+            <p>Your team always knows what's due, what's done, and what's next, without opening another app.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ CLOSING CTA ============ -->
     <section class="closing on-ink">
       <div class="wrap">
@@ -199,7 +399,7 @@
           </svg>
         </div>
         <h2 data-reveal>Not sure which of these fits your business?</h2>
-        <div data-reveal><a class="btn btn-primary btn-lg" href="mailto:hello@endflo.com?subject=Free%20process%20audit">Book a free process audit <i data-lucide="arrow-right"></i></a></div>
+        <div data-reveal><a class="btn btn-primary btn-lg" href="https://wa.me/6581041890?text=Hi%2C%20I%27ve%20looked%20through%20your%20services%20but%20I%27m%20not%20sure%20which%20one%20fits%20my%20business.%20Could%20we%20discuss%20what%20might%20work%20best%3F" target="_blank" rel="noopener">Chat on WhatsApp <i data-lucide="arrow-right"></i></a></div>
       </div>
     </section>
 
@@ -211,9 +411,9 @@
         <div class="footer-brand">
           <a class="logo" href="index.html" style="color: var(--paper);">
             <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
-              <circle cx="14" cy="50" r="6.5" fill="currentColor"></circle>
-              <path d="M 14 50 C 23 50, 23 34, 33 34 C 43 34, 42 66, 52 66 C 60 66, 60 50, 64 50 L 74 50" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M 70 40 L 90 50 L 70 60 Z" fill="currentColor"></path>
+              <circle cx="13" cy="50" r="6.5" fill="currentColor"></circle>
+              <path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+              <path d="M75 40l20 10-20 10Z" fill="currentColor"></path>
             </svg>
             <span class="wordmark">endflo</span>
           </a>
@@ -230,8 +430,8 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <ul>
-            <li><a href="mailto:hello@endflo.com">hello@endflo.com</a></li>
-            <li><a href="mailto:hello@endflo.com?subject=Free%20process%20audit">Book a free audit</a></li>
+            <li><a href="mailto:mleeweirong@gmail.com">mleeweirong@gmail.com</a></li>
+            <li><a href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp</a></li>
           </ul>
         </div>
       </div>
