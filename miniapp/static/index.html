@@ -32,24 +32,26 @@
       --font-body: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'Space Mono', monospace;
       --font-display: 'Manrope', sans-serif;
-      --tracking-mono: 0.12em;
+      --tracking-mono: 0.14em;
     }
     :root[data-theme="dark"] {
-      /* Ink (dark) theme */
+      /* Ink (dark) theme — light theme mirrored, per tokens/colors.css "ink mode".
+         Warm raised surface + warm grays (mist family), never cool/blue neutrals.
+         Accents keep hue, rise in lightness to clear contrast on ink. */
       --bg: #0B0B0C;
-      --surface: #17171A;
+      --surface: #161614;        /* ink-raised */
       --text: #F6F5F0;
-      --muted: rgba(246, 245, 240, 0.64);
-      --faint: rgba(246, 245, 240, 0.42);
-      --accent: #8DA2F2;
-      --accent-alpha: rgba(99, 125, 235, 0.22);
-      --accent-amber: #E0973F;
-      --done: #4CAF87;
-      --done-alpha: rgba(76, 175, 135, 0.16);
-      --danger: #D97B6C;
-      --danger-alpha: rgba(217, 123, 108, 0.16);
-      --border: rgba(246, 245, 240, 0.14);
-      --border-strong: rgba(246, 245, 240, 0.34);
+      --muted: #A9A69B;
+      --faint: #767369;
+      --accent: #8DA2F2;         /* Flow Indigo, bright */
+      --accent-alpha: rgba(141, 162, 242, 0.20);
+      --accent-amber: #E7A95F;   /* Signal Amber, bright */
+      --done: #53B88C;
+      --done-alpha: rgba(83, 184, 140, 0.18);
+      --danger: #D98577;
+      --danger-alpha: rgba(217, 133, 119, 0.18);
+      --border: #2B2A26;         /* mist-dark */
+      --border-strong: #4D4B44;  /* mist-dark-strong */
       --nav-bg: rgba(11, 11, 12, 0.92);
     }
 
@@ -100,7 +102,7 @@
       color: var(--bg);
       background: var(--text);
     }
-    .tab-nav button:not(.active):active { opacity: 0.6; }
+    .tab-nav button:not(.active):active { opacity: 0.75; }
     .gear-btn {
       flex: none !important; width: 44px;
       display: flex; align-items: center; justify-content: center;
@@ -143,7 +145,7 @@
     .card-title { font-weight: 600; font-size: 14.5px; margin-bottom: 6px; word-break: break-word; line-height: 1.35; letter-spacing: -0.01em; }
     .card-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
     .card-date {
-      font-family: var(--font-mono); font-size: 9.5px; font-weight: 400;
+      font-family: var(--font-mono); font-size: 9.5px; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.08em;
       color: var(--faint); margin-top: 8px; display: block;
     }
@@ -192,7 +194,7 @@
     }
     .overview-card {
       background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); padding: 14px 8px; text-align: center;
+      border-radius: var(--radius); padding: 14px 8px; text-align: center;
       display: flex; flex-direction: column; gap: 6px;
     }
     .overview-val {
@@ -269,7 +271,7 @@
     .triage-ref {
       font-family: var(--font-mono); font-size: 10.5px; color: var(--faint);
       letter-spacing: 0.06em; margin-top: 6px; padding-left: 10px;
-      border-left: 2px solid var(--border-strong);
+      border-left: 1.5px solid var(--border-strong);
     }
     .triage-actions { display: flex; gap: 10px; margin-top: 16px; }
     .resolve-btn, .clarify-btn {
@@ -376,7 +378,7 @@
     .part-name { font-size: 13px; font-weight: 600; }
     .part-role {
       font-family: var(--font-mono);
-      font-size: 9px; font-weight: 700; padding: 3px 7px; border-radius: 6px;
+      font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: var(--radius-pill);
       background: transparent; color: var(--muted); border: 1px solid var(--border-strong);
       text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0;
     }
@@ -541,7 +543,7 @@
     /* ---- Footer ---- */
     .stats-footer {
       font-family: var(--font-mono);
-      text-align: center; font-size: 10px; font-weight: 400;
+      text-align: center; font-size: 10px; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.1em;
       color: var(--faint);
       padding: 20px 0; margin-top: 12px;
@@ -759,7 +761,7 @@ const api = (path, opts = {}) => {
 if (IS_DEMO) {
   document.addEventListener('DOMContentLoaded', () => {
     const banner = document.createElement('div');
-    banner.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 12px;font-family:var(--font-mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;';
+    banner.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 12px;font-family:var(--font-mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:var(--tracking-mono);';
     banner.innerHTML = `<span>Demo mode — sample data</span>`;
 
     const svgSun = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`;
@@ -778,7 +780,7 @@ if (IS_DEMO) {
     function applyDemoTheme(dark) {
       applyBrandTheme(dark);
       // signal-amber strip on paper; flat surface strip on ink
-      banner.style.background = dark ? '#17171A' : '#E0973F';
+      banner.style.background = dark ? '#161614' : '#E0973F';
       banner.style.color = dark ? '#F6F5F0' : '#0B0B0C';
     }
 
@@ -993,7 +995,7 @@ async function loadToday() {
     }
 
     if (!allTasks.length) {
-      el.innerHTML = emptyState(svgAllDone, 'All caught up! No outstanding tasks.');
+      el.innerHTML = emptyState(svgAllDone, 'All caught up. No outstanding tasks.');
       return;
     }
 
@@ -1151,7 +1153,7 @@ async function loadProjectTasks() {
     </div>`;
 
     if (!projects.length && !completedProjects.length) {
-      html += emptyState(svgAllDone, 'All caught up! No outstanding tasks.');
+      html += emptyState(svgAllDone, 'All caught up. No outstanding tasks.');
       el.innerHTML = html;
       return;
     }
@@ -1181,7 +1183,7 @@ async function loadProjectTasks() {
         html += `</div></div>`;
       }
     } else {
-      html += emptyState(svgAllDone, 'All caught up! No outstanding tasks.');
+      html += emptyState(svgAllDone, 'All caught up. No outstanding tasks.');
     }
 
     if (completedProjects.length) {

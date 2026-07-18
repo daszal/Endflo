@@ -1,0 +1,16 @@
+:root {
+  /* durations */
+  --dur-micro: 0.2s;       /* hover, press, color/border/opacity changes */
+  --dur-structural: 0.3s;  /* tab fades, sheets, expand/collapse — the ceiling, never longer */
+
+  /* easings — no bounce, no overshoot, anywhere */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);   /* default for most property changes */
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);    /* large surfaces entering (bottom sheets) */
+
+  /* press state (touch/click feedback) */
+  --press-opacity: 0.75;
+  --press-scale: 0.97;     /* 0.95–0.98 by element size: subtler on small controls */
+
+  /* entry offset for fade-ins — motion should be felt, not watched */
+  --enter-shift: 6px;
+}
