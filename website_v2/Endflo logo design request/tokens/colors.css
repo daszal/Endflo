@@ -1,68 +1,81 @@
 :root {
   /* base */
   --ink: #0B0B0C;
-  --paper: #F6F5F0;
-  --mist: #DEDCD2;
-  --mist-strong: #B9B6A9;
-  --accent-indigo: #3F5DE0;
-  --accent-amber: #E0973F;
+  --paper: #F4EFE6;        /* warmed toward cream (v3 direction) */
+  --cream: #F3EFE6;        /* text on ink surfaces */
+  --mist: #E1DCCF;
+  --mist-strong: #BBB4A2;
+
+  /* single warm signature — TERRACOTTA.
+     Replaces the former indigo + amber two-accent split. One colour now
+     carries every accent role: links, primary buttons, highlights, focus. */
+  --terra: #C25B3D;
+  --terra-deep: #9E4429;
   --success: #1F8A5B;
   --danger: #C24A3B;
 
+  /* deprecated aliases — kept so older references don't break; both now
+     resolve to the single terracotta signature. Prefer --terra going forward. */
+  --accent-indigo: var(--terra);
+  --accent-amber: var(--terra);
+
   /* soft fills — accent at low alpha behind accent-colored text/icons
      (tinted badges, secondary buttons). The only translucent color use. */
-  --accent-soft: rgba(63, 93, 224, 0.12);
+  --accent-soft: rgba(194, 91, 61, 0.12);
   --success-soft: rgba(31, 138, 91, 0.12);
   --danger-soft: rgba(194, 74, 59, 0.12);
 
   /* semantic aliases */
   --text-primary: var(--ink);
-  --text-muted: #55534B;
-  --text-faint: #8A887E;
+  --text-muted: #57544C;
+  --text-faint: #8C897E;
   --surface-page: var(--ink);
   --surface-card: var(--paper);
   --surface-card-alt: #FFFFFF;
   --border-subtle: var(--mist);
   --border-strong: var(--mist-strong);
-  --link: var(--accent-indigo);
-  --link-hover: var(--accent-amber);
-  --focus-ring: var(--accent-indigo);
+  --link: var(--terra);
+  --link-hover: var(--terra-deep);
+  --focus-ring: var(--terra);
 
   /* translucent chrome (sticky bars over scrolling content) + modal scrim —
      the only translucent surfaces in the system. See readme "Frosted chrome". */
-  --surface-chrome: rgba(246, 245, 240, 0.92);
+  --surface-chrome: rgba(244, 239, 230, 0.92);
   --scrim: rgba(11, 11, 12, 0.55);
 }
 
 /* ── Ink mode (dark) ─────────────────────────────────────────────
    The light theme mirrored, not a second palette. Rules:
-   - Page stays pure ink; text inverts to paper.
+   - Page stays pure ink; text inverts to cream.
    - Cards lift one step to ink-raised — a WARM dark gray in the same
      family as paper/mist. Never cool/blue-tinted neutrals.
    - Borders remain flat solid 1–1.5px lines; elevation is expressed by
      the one-step surface lift only — still no shadows or glows.
-   - Accents keep their hue and rise in lightness to clear contrast on
-     ink; indigo and amber remain a matched pair. Roles unchanged:
-     interactive states and alerts only.
-   Product UI only — brand/marketing surfaces stay strictly ink-or-paper. */
+   - Terracotta rises in lightness for clear contrast on ink; it stays the
+     single signature. Roles unchanged: interactive states and alerts only.
+   Product UI only — brand/marketing surfaces stay strictly ink-or-cream. */
 :root[data-theme="dark"] {
   /* base (dark variants) */
   --ink-raised: #161614;
   --ink-raised-2: #1D1D1A;
   --mist-dark: #2B2A26;
   --mist-dark-strong: #4D4B44;
-  --accent-indigo-bright: #8DA2F2;
-  --accent-amber-bright: #E7A95F;
+
+  --terra-bright: #E28D6B;     /* terracotta lifted for legibility on ink */
   --success-bright: #53B88C;
   --danger-bright: #D98577;
 
+  /* deprecated aliases → terracotta-bright */
+  --accent-indigo-bright: var(--terra-bright);
+  --accent-amber-bright: var(--terra-bright);
+
   /* soft fills — slightly higher alpha to survive on ink */
-  --accent-soft: rgba(141, 162, 242, 0.20);
+  --accent-soft: rgba(226, 141, 107, 0.20);
   --success-soft: rgba(83, 184, 140, 0.18);
   --danger-soft: rgba(217, 133, 119, 0.18);
 
   /* semantic aliases (remapped) */
-  --text-primary: var(--paper);
+  --text-primary: var(--cream);
   --text-muted: #A9A69B;
   --text-faint: #767369;
   --surface-page: var(--ink);
@@ -70,9 +83,9 @@
   --surface-card-alt: var(--ink-raised-2);
   --border-subtle: var(--mist-dark);
   --border-strong: var(--mist-dark-strong);
-  --link: var(--accent-indigo-bright);
-  --link-hover: var(--accent-amber-bright);
-  --focus-ring: var(--accent-indigo-bright);
+  --link: var(--terra-bright);
+  --link-hover: var(--terra-bright);
+  --focus-ring: var(--terra-bright);
 
   --surface-chrome: rgba(11, 11, 12, 0.92);
   --scrim: rgba(11, 11, 12, 0.55);

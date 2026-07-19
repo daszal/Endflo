@@ -1166,7 +1166,17 @@ p { margin: 0 0 var(--space-4); }
   .show-row, .show-row.rev { grid-template-columns: 1fr; gap: var(--space-5); }
   .show-row .show-copy, .show-row.rev .show-copy { order: 1; }
   .show-row .show-visual, .show-row.rev .show-visual { order: 2; min-height: 0; }
+  /* stack the real element and its floating card instead of leaving them
+     side-by-side in the flex row (that overflowed the phone width) */
+  .show-visual { flex-direction: column; gap: var(--space-5); width: 100%; }
+  .show-visual > * { max-width: 100%; flex: none; }
+  .show-visual .appwin { width: 100%; }
+  .show-visual .device { width: 240px; }
   .show-visual .float, .show-row.rev .show-visual .float { position: static; }
+  /* shrink table windows so all columns fit a narrow screen */
+  .appwin .sheet th, .appwin .sheet td,
+  .appwin .dtable th, .appwin .dtable td { padding: 7px 9px; font-size: 11px; }
+  .appwin .addr { font-size: 10px; }
 }
 
 /* approve / reject chips inside a request card */

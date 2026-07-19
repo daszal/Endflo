@@ -11,7 +11,7 @@ The logo is a single continuous vector: a stroke that ripples (tangled work) und
 ## Index
 
 - `styles.css` — root stylesheet, import this one file. Pulls in all tokens + web fonts.
-- `tokens/colors.css` — ink/paper/mist neutrals + two accents (semantic aliases included).
+- `tokens/colors.css` — ink/paper/mist neutrals + one terracotta signature (base + deep shade; semantic aliases included).
 - `tokens/typography.css` — font stacks (Manrope / Sora / Space Mono) + weight/tracking tokens.
 - `tokens/spacing.css` — spacing scale + corner radii.
 - `tokens/motion.css` — durations, easings, press-state values.
@@ -29,7 +29,7 @@ The logo is a single continuous vector: a stroke that ripples (tangled work) und
 
 ## Visual foundations
 
-- **Color**: strictly monochrome (ink #0B0B0C / paper #F6F5F0) for the logo and brand surfaces, always. Two accents — Flow Indigo and Signal Amber — share the same lightness and chroma and differ only in hue; they're reserved for interactive UI states (links, active tabs, alerts), never applied to the logo itself.
+- **Color**: strictly monochrome (ink #0B0B0C / paper #F4EFE6) for the logo and brand surfaces, always. One warm signature — terracotta `#C25B3D`, with a deeper shade `#9E4429` for hover/emphasis — carries every accent role; it's reserved for interactive UI states (links, active tabs, highlights), never applied to the logo itself.
 - **Type**: Manrope 800 is reserved for the wordmark and hero display moments only, set at tight tracking (-4 to -5%). Sora is the workhorse for all headings, UI and body copy. Space Mono is used only for short technical labels/captions, always uppercase with wide tracking when used as a label.
 - **Shape language**: pill buttons, rounded-rectangle cards (18–28px radius), no colored left-border cards, no drop shadows on cards or the logo. Borders are a flat 1–1.5px mist line, not a shadow.
 - **Backgrounds**: flat ink or flat paper only. No gradients, no photography treatments defined yet, no textures/patterns. Two scoped exceptions in product UI: the ink-raised card surface in dark mode (see Dark theme) and frosted sticky chrome (see Frosted chrome & scrims).
@@ -44,7 +44,7 @@ Product UI (e.g. the Telegram miniapp) supports a dark theme, toggled via a `dat
 - Cards lift one step to **ink-raised** `#161614` — a *warm* dark gray in the same family as paper/mist. Never cool or blue-tinted neutrals.
 - Muted/faint text mirror their light counterparts: `#A9A69B` / `#767369` (warm grays).
 - Borders remain flat solid 1–1.5px lines (mist-dark `#2B2A26`, strong `#4D4B44`). Still no shadows or glows — elevation is expressed only by the one-step surface lift.
-- Accents keep their hue and rise in lightness to pass contrast on ink: Flow Indigo → `#8DA2F2`, Signal Amber → `#E7A95F` (still a matched pair). Success `#53B88C`, danger `#D98577`. Roles unchanged — interactive states and alerts only, never the logo.
+- Terracotta rises in lightness to pass contrast on ink: `#E28D6B` (the single signature). Success `#53B88C`, danger `#D98577`. Roles unchanged — interactive states and alerts only, never the logo.
 - **Soft fills**: an accent at 12% alpha on paper / ~20% alpha on ink (`--accent-soft`, `--success-soft`, `--danger-soft`) may sit behind accent-colored text or icons (tinted badges, secondary buttons). This is the only permitted translucent color use.
 - Scope: **product UI only.** Brand/marketing surfaces (logo lockups, hero sections, print) remain strictly ink-or-paper; ink-raised never appears there.
 

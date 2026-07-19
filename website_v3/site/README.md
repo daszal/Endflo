@@ -2,7 +2,8 @@
 
 **This is the current / canonical Endflo marketing site.** It supersedes `../../website_v2/`
 (kept as history) and the original `../../website/`. Built from `endflo-website-copy.md`,
-`endflo-subpages-copy.md`, and the brand system in `../Endflo logo design request/`, then moved
+`endflo-subpages-copy.md`, and the brand system in `../../website_v2/Endflo logo design request/`
+(the shared brand kit, now updated to this terracotta direction), then moved
 toward the coffee-tech.com direction: one warm signature colour and real product elements in
 place of abstract SVG diagrams.
 
