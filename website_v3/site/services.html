@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Endflo</title>
+  <meta name="description" content="What we automate: invoicing, data entry, onboarding, inventory, approvals, and project management — on the tools you already use.">
+  <link rel="icon" type="image/svg+xml" href="assets/endflo-app-icon.svg">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Endflo home" style="color: var(--paper);">
+        <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <circle cx="13" cy="50" r="6.5" fill="currentColor"></circle>
+          <path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+          <path d="M75 40l20 10-20 10Z" fill="currentColor"></path>
+        </svg>
+        <span class="wordmark">endflo</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+      <nav class="main-nav on-ink">
+        <a href="services.html" aria-current="page">Services</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="faq.html">FAQ</a>
+        <a class="btn btn-primary" href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero on-ink">
+      <div class="wrap">
+        <span class="kicker">Less admin. More time.</span>
+        <h1>What we automate.</h1>
+        <p class="lede">Every business has a handful of processes that eat more time than they should. We fix them on the tools you already run on: WhatsApp, Telegram, Gmail, Slack, Discord.</p>
+      </div>
+    </section>
+
+    <!-- ============ INVOICING ============ -->
+    <section class="service-block" id="invoicing">
+      <div class="wrap">
+        <div class="service-head" data-reveal>
+          <div class="service-icon"><i data-lucide="file-text"></i></div>
+          <div>
+            <span class="service-num">01</span>
+            <h2>Invoicing &amp; Billing</h2>
+          </div>
+        </div>
+        <!-- real element: order closes -> invoice PDF writes itself -> paid & synced -->
+        <div class="svc-flow" data-real>
+          <div class="rc fl-el">
+            <div class="rc-lbl">Trigger</div>
+            <h4>Order closed</h4>
+            <p>Acme — Feb retainer</p>
+            <div class="rc-row"><span>NO ACTION NEEDED</span></div>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="pdfdoc fl-el">
+            <div class="pdf-top"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h8l4 4v16H6z"/></svg>INVOICE</div>
+            <div class="pdf-body">
+              <div class="pdf-title"></div>
+              <div class="pdf-sub"></div>
+              <div class="pdf-row"><span></span><span></span></div>
+              <div class="pdf-row"><span></span><span></span></div>
+              <div class="pdf-row total"><span></span><span></span></div>
+            </div>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="rc fl-el">
+            <div class="rc-lbl">Result</div>
+            <h4>Paid &amp; synced</h4>
+            <p>Reminders sent · logged to your accounting tool</p>
+            <div class="rc-row"><span>S$3,000.00</span><span class="ok">● PAID</span></div>
+          </div>
+        </div>
+        <div class="pfr" data-reveal-group>
+          <div class="pfr-card">
+            <span class="pfr-label">The problem</span>
+            <p>Someone still creates invoices by hand and chases payments one by one. Receipts pile up until it's time to reconcile them at month-end.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card">
+            <span class="pfr-label">The fix</span>
+            <p>An invoice generates automatically the moment an order or project closes. Reminders go out on schedule, and everything syncs straight to your accounting tool.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card result">
+            <span class="pfr-label">The result</span>
+            <p>You get paid faster, with fewer mistakes and no chasing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DATA ENTRY ============ -->
+    <section class="service-block" id="data">
+      <div class="wrap">
+        <div class="service-head" data-reveal>
+          <div class="service-icon"><i data-lucide="database"></i></div>
+          <div>
+            <span class="service-num">02</span>
+            <h2>Data Entry &amp; Reporting</h2>
+          </div>
+        </div>
+        <!-- real element: PDFs + telegram screenshots -> google sheet -> dashboard -->
+        <div class="svc-flow" data-real>
+          <div class="fl-el" style="display:grid; gap:12px;">
+            <div class="pdfdoc" style="width:150px;">
+              <div class="pdf-top"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h8l4 4v16H6z"/></svg>P&amp;L.PDF</div>
+              <div class="pdf-body">
+                <div class="pdf-title"></div><div class="pdf-sub"></div>
+                <div class="pdf-row"><span></span><span></span></div>
+                <div class="pdf-row"><span></span><span></span></div>
+                <div class="pdf-row total"><span></span><span></span></div>
+              </div>
+            </div>
+            <div class="shot" style="width:150px;">
+              <div class="shot-top"><i></i><i></i><i></i></div>
+              <div class="shot-b"><div class="l"></div><div class="l s"></div><div class="l terra"></div></div>
+            </div>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="appwin wide fl-el">
+            <div class="bar">
+              <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+              <div class="addr"><svg viewBox="0 0 24 24" fill="none" stroke="#1E7A46" stroke-width="2.4"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>Q1 Financials — Google Sheets</div>
+            </div>
+            <table class="sheet">
+              <thead><tr><th>Month</th><th class="num">Revenue</th><th class="num">Expenses</th><th class="num">Net</th></tr></thead>
+              <tbody>
+                <tr><td>Jan</td><td class="num">48,200</td><td class="num">31,400</td><td class="num">16,800</td></tr>
+                <tr><td>Feb</td><td class="num">52,600</td><td class="num">33,100</td><td class="num">19,500</td></tr>
+                <tr class="new"><td>Mar</td><td class="num">57,900</td><td class="num">34,800</td><td class="num">23,100</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="appwin narrow fl-el">
+            <div class="bar">
+              <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+              <div class="addr">endflo · dashboard</div>
+            </div>
+            <div class="dash">
+              <div class="kpi"><div class="k-lbl">Revenue</div><div class="k-val">57.9k</div></div>
+              <div class="kpi"><div class="k-lbl">Net margin</div><div class="k-val up">40%</div></div>
+              <div class="kpi"><div class="k-lbl">MoM</div><div class="k-val up">+10%</div></div>
+              <div class="chartcard">
+                <div class="c-head"><b>Net profit</b><span>Q1</span></div>
+                <div class="bars"><div class="bar lo" style="height:52%"></div><div class="bar" style="height:66%"></div><div class="bar" style="height:88%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pfr" data-reveal-group>
+          <div class="pfr-card">
+            <span class="pfr-label">The problem</span>
+            <p>The same numbers get typed into three different systems, and reports get built by hand every week.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card">
+            <span class="pfr-label">The fix</span>
+            <p>Data syncs automatically between the platforms you use. Reports generate on a schedule instead of a to-do list.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card result">
+            <span class="pfr-label">The result</span>
+            <p>That's hours back every week, and an end to copy-paste mistakes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ONBOARDING ============ -->
+    <section class="service-block" id="onboarding">
+      <div class="wrap">
+        <div class="service-head" data-reveal>
+          <div class="service-icon"><i data-lucide="user-plus"></i></div>
+          <div>
+            <span class="service-num">03</span>
+            <h2>Customer Onboarding &amp; Follow-ups</h2>
+          </div>
+        </div>
+        <!-- real element: jotform entry -> data table row -> telegram follow-up -->
+        <div class="svc-flow" data-real>
+          <div class="appwin narrow fl-el">
+            <div class="bar">
+              <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+              <div class="addr">form.jotform.com/intake</div>
+            </div>
+            <div class="formcard">
+              <div class="f-title">New client intake</div>
+              <div class="f-field"><span class="f-lbl">Company</span><div class="f-in">Nimbus Co</div></div>
+              <div class="f-field"><span class="f-lbl">Contact email</span><div class="f-in">ops@nimbus.co</div></div>
+              <div class="f-field"><span class="f-lbl">Service</span><div class="f-in">Monthly retainer</div></div>
+              <div class="f-submit">Submit</div>
+            </div>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="appwin fl-el">
+            <div class="bar">
+              <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+              <div class="addr">endflo · clients (data table)</div>
+            </div>
+            <table class="dtable">
+              <thead><tr><th>Company</th><th>Email</th><th>Stage</th></tr></thead>
+              <tbody>
+                <tr><td>Acme Pte Ltd</td><td>fin@acme.sg</td><td><span class="pill-ok">ACTIVE</span></td></tr>
+                <tr><td>Orbit LLP</td><td>hi@orbit.co</td><td><span class="pill-ok">ACTIVE</span></td></tr>
+                <tr class="new"><td>Nimbus Co</td><td>ops@nimbus.co</td><td><span class="pill-wait">NEW</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="device tg fl-el">
+            <div class="notch"></div>
+            <div class="screen">
+              <div class="chat-head">
+                <div class="av"><svg viewBox="0 0 100 100" fill="none"><circle cx="13" cy="50" r="6.5" fill="#fff"/><path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M75 40l20 10-20 10Z" fill="#fff"/></svg></div>
+                <div class="who"><b>Endflo</b><span>bot · Telegram</span></div>
+              </div>
+              <div class="chat-body" style="min-height:210px;">
+                <div class="bubble out">👋 Welcome to the team, Nimbus Co! Here's your onboarding checklist to get started.<span class="t">now <span class="tick">✓✓</span></span></div>
+                <div class="bubble out">I'll check in on Day 2 and Day 7 — and I've nudged your account lead to say hello.<span class="t">now <span class="tick">✓✓</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pfr" data-reveal-group>
+          <div class="pfr-card">
+            <span class="pfr-label">The problem</span>
+            <p>New customers fall through the cracks. Follow-ups get forgotten when things get busy.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card">
+            <span class="pfr-label">The fix</span>
+            <p>A welcome sequence goes out automatically over WhatsApp, Telegram, or email, and your team gets a nudge the moment a follow-up is due.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card result">
+            <span class="pfr-label">The result</span>
+            <p>Customers stop waiting on someone to remember them.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INVENTORY ============ -->
+    <section class="service-block" id="inventory">
+      <div class="wrap">
+        <div class="service-head" data-reveal>
+          <div class="service-icon"><i data-lucide="package"></i></div>
+          <div>
+            <span class="service-num">04</span>
+            <h2>Order &amp; Inventory Tracking</h2>
+          </div>
+        </div>
+        <!-- real element: live inventory table -> low-stock alert to chat -->
+        <div class="svc-flow" data-real>
+          <div class="appwin fl-el">
+            <div class="bar">
+              <div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+              <div class="addr">endflo · inventory (live)</div>
+            </div>
+            <table class="dtable">
+              <thead><tr><th>SKU</th><th>Item</th><th class="num">On hand</th><th class="num">Status</th></tr></thead>
+              <tbody>
+                <tr><td>SKU-118</td><td>Filter — house blend</td><td class="num">240</td><td class="num"><span class="pill-ok">OK</span></td></tr>
+                <tr><td>SKU-176</td><td>Cups, 12oz</td><td class="num">86</td><td class="num"><span class="pill-ok">OK</span></td></tr>
+                <tr class="new"><td>SKU-204</td><td>Beans — single origin</td><td class="num">12</td><td class="num"><span class="pill-wait">LOW</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="rc fl-el">
+            <div class="rc-lbl">Low-stock alert</div>
+            <h4>SKU-204 · 12 left</h4>
+            <p>Pushed to #ops on Slack &amp; WhatsApp</p>
+            <div class="rc-row"><span>REORDER 200</span><span class="ok">● QUEUED</span></div>
+          </div>
+        </div>
+        <div class="pfr" data-reveal-group>
+          <div class="pfr-card">
+            <span class="pfr-label">The problem</span>
+            <p>Stock counts live in a spreadsheet that's always a little out of date.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card">
+            <span class="pfr-label">The fix</span>
+            <p>Inventory updates automatically across channels, with alerts when stock runs low.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card result">
+            <span class="pfr-label">The result</span>
+            <p>Stockouts drop, and reconciliation stops eating an afternoon each month.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ APPROVALS ============ -->
+    <section class="service-block" id="approvals">
+      <div class="wrap">
+        <div class="service-head" data-reveal>
+          <div class="service-icon"><i data-lucide="clipboard-check"></i></div>
+          <div>
+            <span class="service-num">05</span>
+            <h2>Internal Approvals &amp; Admin Requests</h2>
+          </div>
+        </div>
+        <!-- real element: approval request with buttons -> routed & logged -->
+        <div class="svc-flow" data-real>
+          <div class="rc fl-el" style="width:270px;">
+            <div class="rc-lbl">Approval request · Slack</div>
+            <h4>Purchase — 3 monitors</h4>
+            <p>S$1,350 · requested by Jordan (Ops)</p>
+            <div style="display:flex; gap:8px; margin-top:13px;">
+              <span class="mini-btn ok-btn">Approve</span>
+              <span class="mini-btn no-btn">Reject</span>
+            </div>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="rc fl-el">
+            <div class="rc-lbl">Approved &amp; logged</div>
+            <h4>Routed to Finance</h4>
+            <p>Ops lead → Finance · full audit trail kept</p>
+            <div class="rc-row"><span>2 MIN AGO</span><span class="ok">● LOGGED</span></div>
+          </div>
+        </div>
+        <div class="pfr" data-reveal-group>
+          <div class="pfr-card">
+            <span class="pfr-label">The problem</span>
+            <p>Approval requests get buried in email or chat, and it's unclear who's supposed to sign off.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card">
+            <span class="pfr-label">The fix</span>
+            <p>Requests move through a structured approval flow in Slack, Discord, or WhatsApp, with automatic routing and reminders built in.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card result">
+            <span class="pfr-label">The result</span>
+            <p>Decisions move faster, and there's a clear record of who approved what.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECT MANAGEMENT ============ -->
+    <section class="service-block" id="project-management">
+      <div class="wrap">
+        <div class="service-head" data-reveal>
+          <div class="service-icon"><i data-lucide="list-checks"></i></div>
+          <div>
+            <span class="service-num">06</span>
+            <h2>Project &amp; Task Management</h2>
+          </div>
+        </div>
+        <!-- real element: a task typed in chat -> assigned & tracked -->
+        <div class="svc-flow" data-real>
+          <div class="device wa fl-el">
+            <div class="notch"></div>
+            <div class="screen">
+              <div class="chat-head">
+                <div class="av"><svg viewBox="0 0 100 100" fill="none"><circle cx="13" cy="50" r="6.5" fill="#fff"/><path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M75 40l20 10-20 10Z" fill="#fff"/></svg></div>
+                <div class="who"><b>Team · Endflo</b><span>4 members</span></div>
+              </div>
+              <div class="chat-body" style="min-height:210px;">
+                <div class="bubble in">add task: send Q1 deck to Nimbus by Wed<span class="t">10:14</span></div>
+                <div class="bubble out">Added ✅ "Send Q1 deck to Nimbus" — assigned to you, due Wed.<span class="t">10:14 <span class="tick">✓✓</span></span></div>
+                <div class="bubble in">/done<span class="t">11:02</span></div>
+                <div class="bubble out">Nice — marked done. 3 tasks left this week 🎯<span class="t">11:02 <span class="tick">✓✓</span></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="arrowflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="stage-col" style="width:230px;">
+            <div class="rc">
+              <div class="rc-lbl">Task assigned</div>
+              <h4>Send Q1 deck to Nimbus</h4>
+              <p>Owner: you · tracked in the board</p>
+              <div class="rc-row"><span>DUE WED</span><span class="ok">● DONE</span></div>
+            </div>
+            <div class="rc">
+              <div class="rc-lbl">This week</div>
+              <h4>3 tasks left</h4>
+              <p>Nothing overdue · all in chat</p>
+            </div>
+          </div>
+        </div>
+        <div class="pfr" data-reveal-group>
+          <div class="pfr-card">
+            <span class="pfr-label">The problem</span>
+            <p>Tasks and meeting notes live scattered across chats, spreadsheets, and someone's memory. Nothing is tracked until something gets missed.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card">
+            <span class="pfr-label">The fix</span>
+            <p>A shared task board lives right inside WhatsApp or Telegram. Tasks get assigned, meetings get logged, and every update lands with the right person automatically.</p>
+          </div>
+          <div class="pfr-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="pfr-card result">
+            <span class="pfr-label">The result</span>
+            <p>Your team always knows what's due, what's done, and what's next, without opening another app.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CLOSING CTA ============ -->
+    <section class="closing on-ink">
+      <div class="wrap">
+        <div class="closing-flow" aria-hidden="true">
+          <svg viewBox="0 0 420 40" fill="none">
+            <path class="flow-stroke" d="M 10 20 L 390 20"></path>
+            <path class="head" d="M 388 8 L 412 20 L 388 32 Z"></path>
+          </svg>
+        </div>
+        <h2 data-reveal>Not sure which of these fits your business?</h2>
+        <div data-reveal><a class="btn btn-primary btn-lg" href="https://wa.me/6581041890?text=Hi%2C%20I%27ve%20looked%20through%20your%20services%20but%20I%27m%20not%20sure%20which%20one%20fits%20my%20business.%20Could%20we%20discuss%20what%20might%20work%20best%3F" target="_blank" rel="noopener">Chat on WhatsApp <i data-lucide="arrow-right"></i></a></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="logo" href="index.html" style="color: var(--paper);">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <circle cx="13" cy="50" r="6.5" fill="currentColor"></circle>
+              <path d="M13 50h4c10 0 10-16 21-16c11 0 9 32 20 32c9 0 9-16 17-16h6" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+              <path d="M75 40l20 10-20 10Z" fill="currentColor"></path>
+            </svg>
+            <span class="wordmark">endflo</span>
+          </a>
+          <p>End-to-end workflow automation. Get your time back.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="how-it-works.html">How it works</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:mleeweirong@gmail.com">mleeweirong@gmail.com</a></li>
+            <li><a href="https://wa.me/6581041890?text=Hi%2C%20I%27d%20like%20to%20find%20out%20how%20Endflo%20could%20help%20automate%20some%20of%20our%20admin%20work." target="_blank" rel="noopener">Chat on WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Endflo</span>
+        <span>Singapore &middot; Data stays on-premise, always</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
